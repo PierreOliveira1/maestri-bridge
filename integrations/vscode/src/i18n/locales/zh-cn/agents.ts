@@ -19,6 +19,7 @@ export const agents: Record<keyof typeof source, string> = {
   'agents.notification.aggregate.other': '{count} 个代理需要关注',
   'agents.notification.message': '{name} 正在请求关注：“{reason}”',
   'agents.notification.showAgents': '查看代理',
+  'agents.notification.waiting': '{name} 已完成，正在等你。',
   'agents.picker.emptyWorkspace': '此工作区中没有代理',
   'agents.picker.floorCurrent': '{floor} · 当前楼层',
   'agents.picker.itemDescriptionWithFloor': '{description} · {floor}',

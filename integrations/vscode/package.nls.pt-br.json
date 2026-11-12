@@ -24,5 +24,11 @@
   "config.notifyAttention.description": "Avisa quando um agente do Maestri passa a pedir atenção.",
   "config.pollIntervalSeconds.description": "Intervalo, em segundos, para atualizar os agentes enquanto o VS Code está em foco.",
   "config.language.description": "Idioma da extensão. Os nomes dos comandos e menus seguem sempre o idioma do VS Code.",
-  "config.language.auto": "Segue o idioma do VS Code."
+  "config.language.auto": "Segue o idioma do VS Code.",
+  "command.notes.next": "Próxima nota do agente",
+  "command.notes.previous": "Nota anterior do agente",
+  "command.notes.close": "Fechar nota",
+  "command.notes.clearAll": "Limpar notas dos agentes",
+  "command.notes.reply": "Responder",
+  "config.agentLinks.description": "Permite que agentes abram arquivos aqui, destaquem código e deixem notas para você responder. Apenas arquivos dentro das pastas abertas são abertos."
 }

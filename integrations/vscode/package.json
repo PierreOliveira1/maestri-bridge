@@ -2,7 +2,7 @@
   "name": "maestri-bridge",
   "displayName": "Maestri Bridge",
   "description": "%extension.description%",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "maestri-bridge",
   "license": "MIT",
   "repository": {
@@ -24,7 +24,8 @@
   ],
   "main": "./dist/extension.cjs",
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onUri"
   ],
   "contributes": {
     "commands": [
@@ -118,6 +119,36 @@
         "command": "maestriBridge.agents.showWorkspace",
         "title": "%command.agents.showWorkspace%",
         "category": "Maestri"
+      },
+      {
+        "command": "maestriBridge.notes.next",
+        "title": "%command.notes.next%",
+        "category": "Maestri",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "maestriBridge.notes.previous",
+        "title": "%command.notes.previous%",
+        "category": "Maestri",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "maestriBridge.notes.close",
+        "title": "%command.notes.close%",
+        "category": "Maestri",
+        "icon": "$(close)"
+      },
+      {
+        "command": "maestriBridge.notes.clearAll",
+        "title": "%command.notes.clearAll%",
+        "category": "Maestri",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "maestriBridge.notes.reply",
+        "title": "%command.notes.reply%",
+        "category": "Maestri",
+        "icon": "$(send)"
       }
     ],
     "menus": {
@@ -157,6 +188,14 @@
         {
           "command": "maestriBridge.agents.showWorkspace",
           "when": "false"
+        },
+        {
+          "command": "maestriBridge.notes.reply",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.notes.close",
+          "when": "false"
         }
       ],
       "editor/context": [
@@ -181,6 +220,28 @@
           "command": "maestriBridge.thread.openInComposer",
           "group": "navigation@2",
           "when": "commentController == maestriBridge"
+        },
+        {
+          "command": "maestriBridge.notes.previous",
+          "group": "navigation@1",
+          "when": "commentController == maestriBridgeNotes"
+        },
+        {
+          "command": "maestriBridge.notes.next",
+          "group": "navigation@2",
+          "when": "commentController == maestriBridgeNotes"
+        },
+        {
+          "command": "maestriBridge.notes.close",
+          "group": "navigation@3",
+          "when": "commentController == maestriBridgeNotes"
+        }
+      ],
+      "comments/commentThread/context": [
+        {
+          "command": "maestriBridge.notes.reply",
+          "group": "inline",
+          "when": "commentController == maestriBridgeNotes && commentThread == maestri.note.reply"
         }
       ],
       "comments/comment/context": [
@@ -323,6 +384,11 @@
             "简体中文"
           ],
           "description": "%config.language.description%"
+        },
+        "maestriBridge.agentLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.agentLinks.description%"
         }
       }
     },

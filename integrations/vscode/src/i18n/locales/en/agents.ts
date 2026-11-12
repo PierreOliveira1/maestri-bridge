@@ -17,6 +17,7 @@ export const agents = {
   'agents.notification.aggregate.other': '{count} agents need attention',
   'agents.notification.message': '{name} is asking for attention: “{reason}”',
   'agents.notification.showAgents': 'See agents',
+  'agents.notification.waiting': '{name} finished and is waiting for you.',
   'agents.picker.emptyWorkspace': 'No agents in this workspace',
   'agents.picker.floorCurrent': '{floor} · current floor',
   'agents.picker.itemDescriptionWithFloor': '{description} · {floor}',

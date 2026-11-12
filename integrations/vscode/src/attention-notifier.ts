@@ -60,7 +60,10 @@ function showEvent(
 ): void {
   const name = event.terminal.name;
   const reason = clipReason(event.reason);
-  const text = t('agents.notification.message', { name, reason });
+  const text =
+    reason === ''
+      ? t('agents.notification.waiting', { name })
+      : t('agents.notification.message', { name, reason });
   const approve = t('agents.action.approve');
   const reject = t('agents.action.reject');
   const openInMaestri = t('agents.action.openInMaestri');

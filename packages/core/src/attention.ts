@@ -1,4 +1,5 @@
 import type { FeedSnapshot, TerminalSummary } from './models.ts';
+import { meaningfulPreview } from './preview.ts';
 
 export interface AttentionInfo {
   reason: string;
@@ -27,14 +28,7 @@ export function attentionInfo(snapshot: FeedSnapshot, terminal: TerminalSummary)
     return { reason: terminal.maestroRequest.message };
   }
 
-  for (const line of [...terminal.preview].reverse()) {
-    const collapsed = line.trim().replace(/\s+/g, ' ');
-    if (collapsed !== '') {
-      return { reason: collapsed };
-    }
-  }
-
-  return { reason: 'Terminou e está aguardando você.' };
+  return { reason: meaningfulPreview(terminal.preview).at(-1) ?? '' };
 }
 
 export function detectNewAttention(

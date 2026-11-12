@@ -47,6 +47,7 @@ pnpm exec vitest run --maxWorkers=5% test/floors.test.ts
 
 - `packages/core`: everything that doesn't depend on an editor, such as the Wire client, pairing, the pinned TLS connection, agent status polling, floors and the prompt format. Put new logic here whenever it can be shared with other editors.
 - `integrations/vscode`: the VS Code extension. Keep it to the editor glue: commands, views, the inline box, the panel and settings.
+- `skills/maestri-bridge`: the agent skill that teaches agents to show code in the editor. If you change the link format, update the skill and its script too.
 
 ## Code guidelines
 

@@ -20,6 +20,7 @@ export const agents: Record<keyof typeof source, string> = {
   'agents.notification.aggregate.other': '{count} Agenten brauchen Aufmerksamkeit',
   'agents.notification.message': '{name} bittet um Aufmerksamkeit: „{reason}“',
   'agents.notification.showAgents': 'Agenten ansehen',
+  'agents.notification.waiting': '{name} ist fertig und wartet auf dich.',
   'agents.picker.emptyWorkspace': 'Keine Agenten in diesem Arbeitsbereich',
   'agents.picker.floorCurrent': '{floor} · aktuelle Etage',
   'agents.picker.itemDescriptionWithFloor': '{description} · {floor}',

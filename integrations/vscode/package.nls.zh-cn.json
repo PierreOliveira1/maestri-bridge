@@ -24,5 +24,11 @@
   "config.notifyAttention.description": "当 Maestri 代理开始需要你关注时发出通知。",
   "config.pollIntervalSeconds.description": "VS Code 处于焦点时刷新代理的间隔（秒）。",
   "config.language.description": "扩展的语言。命令和菜单名称始终跟随 VS Code 的语言。",
-  "config.language.auto": "跟随 VS Code 的语言。"
+  "config.language.auto": "跟随 VS Code 的语言。",
+  "command.notes.next": "下一条代理笔记",
+  "command.notes.previous": "上一条代理笔记",
+  "command.notes.close": "关闭笔记",
+  "command.notes.clearAll": "清除代理笔记",
+  "command.notes.reply": "回复",
+  "config.agentLinks.description": "允许代理在此打开文件、突出显示代码并留下可供你回复的笔记。只会打开已打开文件夹中的文件。"
 }

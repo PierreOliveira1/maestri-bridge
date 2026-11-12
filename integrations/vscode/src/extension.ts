@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { AgentMonitor } from './agent-monitor.ts';
+import { registerAgentNotes } from './agent-notes.ts';
 import { registerAgentsView } from './agents-view.ts';
 import { registerAttentionNotifier } from './attention-notifier.ts';
 import { registerCommentComposer } from './comment-composer.ts';
@@ -39,6 +40,7 @@ export function activate(context: vscode.ExtensionContext): void {
     ),
     registerCommentComposer(services),
     registerComposer(services),
+    registerAgentNotes(services, monitor),
     registerAgentsView(services, monitor),
     registerAttentionNotifier(services, monitor),
     createStatusBar(session, monitor),

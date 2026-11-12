@@ -25,6 +25,7 @@ describe('isPreviewChrome', () => {
     'Ask anything… "Fix a TODO in the codebase"',
     '/update to install v2.2.7',
     '2.0.14',
+    '+ Thought · 1.4s',
   ])('reconhece %s como moldura', (line) => {
     expect(isPreviewChrome(line)).toBe(true);
   });

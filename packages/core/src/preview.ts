@@ -13,6 +13,7 @@ const CHROME_PATTERNS: readonly RegExp[] = [
   /^Ask anything…/,
   /^\/update to install\b/,
   /^v?\d+\.\d+\.\d+$/,
+  /^\+ Thought · [\d.]+m?s$/,
 ];
 
 export function compactPreviewLine(line: string): string {

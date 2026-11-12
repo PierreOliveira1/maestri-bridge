@@ -19,6 +19,7 @@ export const agents: Record<keyof typeof source, string> = {
   'agents.notification.aggregate.other': '{count} 件のエージェントが対応を待っています',
   'agents.notification.message': '{name} が対応を求めています：「{reason}」',
   'agents.notification.showAgents': 'エージェントを表示',
+  'agents.notification.waiting': '{name} が完了し、あなたを待っています。',
   'agents.picker.emptyWorkspace': 'このワークスペースにエージェントはいません',
   'agents.picker.floorCurrent': '{floor} · 現在のフロア',
   'agents.picker.itemDescriptionWithFloor': '{description} · {floor}',

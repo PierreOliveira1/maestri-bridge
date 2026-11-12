@@ -10,6 +10,7 @@ Send code snippets and messages from your editor to the agents and terminals run
 - **Message panel.** Press `Ctrl+M` again to move to a side panel for longer messages. Attach several snippets, even from different files, and pick the agent.
 - **Live agents sidebar.** See every agent in the current Maestri workspace with its status (working, idle, stopped, needs attention) and its latest output. From there you can write to an agent, open its terminal in Maestri and approve or reject a confirmation prompt.
 - **Floors.** Agents on the current floor come first. Agents on other floors are grouped by floor name, and the agent search also matches floor names.
+- **Agents show you code.** An agent can open a file in your editor, highlight lines and leave a note below them. Reply in the same box and the answer goes back to that agent. Several notes in a row become a tour you step through.
 - **Attention alerts.** A notification shows up when an agent starts waiting for you.
 - **Seven languages**, the same as Maestri: English, Portuguese (Brazil), Spanish, French, German, Japanese and Simplified Chinese.
 
@@ -114,6 +115,34 @@ Click the Maestri icon in the Activity Bar to open the sidebar.
 
 Maestri Bridge picks the Maestri workspace that matches the folder open in VS Code.
 
+### Let agents show you code
+
+Agents can also point at code for you. An agent opens a file in your editor, highlights the lines it's talking about and leaves a note below them.
+
+- **Reply on the note.** Type in the box below the note and press `Cmd+Enter`. Your reply goes to that agent with the highlighted code attached, and shows up in the same box.
+- **Step through a tour.** When an agent leaves several notes in a row, use the arrows at the top of each note, or **Maestri: Next agent note** and **Maestri: Previous agent note**, to go from one to the next.
+- **Close notes** with the `×` on each note, or all at once with **Maestri: Clear agent notes**.
+
+Agents do this by opening a `vscode://maestri-bridge.maestri-bridge/show?...` link. The easiest way to teach them is the [agent skill](#agent-skill) below. The first time, VS Code asks whether Maestri Bridge may open the link. Check **Do not ask me again for this extension** and click **Open**.
+
+For safety, the extension only opens files inside the folders open in that window and only shows text: links can't run commands. To turn it off, set `maestriBridge.agentLinks` to `false`.
+
+## Agent skill
+
+The [`skills/maestri-bridge`](skills/maestri-bridge) folder is an [agent skill](https://agentskills.io) that teaches your agents to show you code. It has the instructions (`SKILL.md`) and a small script that builds and opens the link:
+
+```sh
+skills/maestri-bridge/scripts/show-in-editor.sh --new src/auth/session.ts:42-58 "This is where the token is refreshed."
+```
+
+To install it:
+
+- **Claude Code:** copy the folder to `~/.claude/skills/` (for all projects) or to `.claude/skills/` in your project.
+- **Other agents with skill support:** copy the folder to the skills directory your agent reads.
+- **Agents without skills:** copy the script somewhere in your project and add a short note to your `AGENTS.md`, for example: *"To show me code, run `scripts/show-in-editor.sh FILE:START-END "note"`. Use `--new` for the first note of a walkthrough."*
+
+The script runs on macOS, Linux and Windows (Git Bash or WSL). It uses `MAESTRI_TERMINAL_ID`, which Maestri sets in every terminal, so replies reach the right agent. To target Cursor, Windsurf, VS Code Insiders or VSCodium, set `MAESTRI_BRIDGE_EDITOR` to `cursor`, `windsurf`, `vscode-insiders` or `vscodium`.
+
 ## Settings
 
 | Setting | Default | Description |
@@ -123,6 +152,7 @@ Maestri Bridge picks the Maestri workspace that matches the folder open in VS Co
 | `maestriBridge.gutterButton` | `true` | Shows the `+` button in the editor margin. |
 | `maestriBridge.notifyAttention` | `true` | Notifies you when an agent starts waiting for you. |
 | `maestriBridge.pollIntervalSeconds` | `2` | How often, in seconds, agents are refreshed while VS Code has focus. Refreshing pauses while VS Code is in the background and slows down when Maestri doesn't answer. |
+| `maestriBridge.agentLinks` | `true` | Lets agents open files in this window, highlight code and leave notes you can reply to. Only files inside the open folders are opened. |
 | `maestriBridge.language` | `auto` | Extension language. `auto` follows VS Code and falls back to English. Command and menu names always follow the VS Code language. |
 
 ## Commands
@@ -136,6 +166,8 @@ All commands are under **Maestri** in the Command Palette.
 | Quick send to agent (list) | Picks an agent from a list and sends the selection with a short message. |
 | Pair with Maestri | Connects VS Code to Maestri. |
 | Unpair from Maestri | Removes the saved access token. |
+| Next agent note / Previous agent note | Steps through the notes an agent left in your editor. |
+| Clear agent notes | Closes every agent note. |
 
 ## Project structure
 

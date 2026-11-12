@@ -92,9 +92,17 @@ describe('attentionInfo', () => {
     });
   });
 
-  it('usa o texto padrão quando não há nada', () => {
+  it('ignora a moldura do terminal', () => {
+    const item = terminal('t1', {
+      preview: ['Resposta final', '…/abc:main 19.7K (2%) · $0.01 ctrl+p commands'],
+    });
+
+    expect(attentionInfo(snapshot(), item)).toEqual({ reason: 'Resposta final' });
+  });
+
+  it('devolve motivo vazio quando não há nada', () => {
     expect(attentionInfo(snapshot(), terminal('t1'))).toEqual({
-      reason: 'Terminou e está aguardando você.',
+      reason: '',
     });
   });
 });
@@ -123,7 +131,7 @@ describe('detectNewAttention', () => {
     const events = detectNewAttention(snapshot(), snapshot({ terminals: [item] }));
 
     expect(events).toEqual([
-      { reason: 'Terminou e está aguardando você.', terminal: item },
+      { reason: '', terminal: item },
     ]);
   });
 
