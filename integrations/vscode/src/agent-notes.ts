@@ -1,4 +1,4 @@
-import { isAbsolute, normalize, relative, resolve } from 'node:path';
+import { isAbsolute, normalize } from 'node:path';
 import * as vscode from 'vscode';
 import { SHOW_LINK_PATH, locateTerminal, parseShowLink } from '@maestri-bridge/core';
 import type { ShowLinkErrorCode } from '@maestri-bridge/core';
@@ -93,29 +93,28 @@ export function registerAgentNotes(
   };
 
   const resolveFile = async (file: string, name: string): Promise<vscode.Uri | undefined> => {
-    if (isAbsolute(file)) {
-      const uri = vscode.Uri.file(normalize(file));
-      if (vscode.workspace.getWorkspaceFolder(uri) === undefined) {
-        void vscode.window.showWarningMessage(
-          t('notes.error.outsideWorkspace', { name, file }),
-        );
-        return undefined;
-      }
-      return (await exists(uri)) ? uri : showNotFound(name, file);
-    }
+    const absolute = isAbsolute(file);
+    const absolutePath = absolute ? vscode.Uri.file(normalize(file)).path : undefined;
 
+    let insideAnyFolder = false;
     for (const folder of vscode.workspace.workspaceFolders ?? []) {
-      const candidate = resolve(folder.uri.fsPath, file);
-      const relativePath = relative(folder.uri.fsPath, candidate);
-      if (relativePath.startsWith('..') || isAbsolute(relativePath)) {
+      const uri =
+        absolutePath !== undefined
+          ? folder.uri.with({ path: absolutePath })
+          : vscode.Uri.joinPath(folder.uri, file.replaceAll('\\', '/'));
+      if (vscode.workspace.getWorkspaceFolder(uri) === undefined) {
         continue;
       }
-      const uri = vscode.Uri.file(candidate);
+      insideAnyFolder = true;
       if (await exists(uri)) {
         return uri;
       }
     }
 
+    if (absolute && !insideAnyFolder) {
+      void vscode.window.showWarningMessage(t('notes.error.outsideWorkspace', { name, file }));
+      return undefined;
+    }
     return showNotFound(name, file);
   };
 
