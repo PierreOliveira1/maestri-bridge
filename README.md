@@ -33,7 +33,20 @@ export function floorKey(floorId: string | undefined): string {
 
 ## Install
 
-Maestri Bridge isn't on the Marketplace yet, so you build the `.vsix` file from source and install it.
+1. Download [`maestri-bridge.vsix`](https://github.com/PierreOliveira1/maestri-bridge/releases/latest/download/maestri-bridge.vsix) from the [latest release](https://github.com/PierreOliveira1/maestri-bridge/releases/latest).
+2. In VS Code, open the Extensions view, click `...` at the top and choose **Install from VSIX...**, then pick the file you downloaded.
+
+Or install it from the terminal:
+
+```sh
+code --install-extension ~/Downloads/maestri-bridge.vsix
+```
+
+In Cursor, use `cursor --install-extension` instead of `code`.
+
+To update, download the new release and install it the same way.
+
+### Build from source
 
 You need [Node.js](https://nodejs.org) 20 or later and [pnpm](https://pnpm.io).
 
@@ -42,15 +55,8 @@ git clone https://github.com/PierreOliveira1/maestri-bridge.git
 cd maestri-bridge
 pnpm install
 pnpm package
-```
-
-This creates `integrations/vscode/maestri-bridge.vsix`. Install it with:
-
-```sh
 code --install-extension integrations/vscode/maestri-bridge.vsix
 ```
-
-You can also open the Extensions view in VS Code, click `...` and choose **Install from VSIX...**. In Cursor, use `cursor --install-extension` instead of `code`.
 
 ## Pair with Maestri
 

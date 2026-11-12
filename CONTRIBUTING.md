@@ -76,4 +76,17 @@ Tests check that every locale has every key with the same placeholders, so a mis
 3. Write a clear description: the problem, how you solved it and how to test it.
 4. Make sure `pnpm typecheck` and `pnpm test` pass.
 
+Every push and pull request runs the type check, the tests and the build on GitHub Actions.
+
+## Releases
+
+Maintainers publish a release by bumping `version` in `integrations/vscode/package.json`, merging it into `main` and pushing a matching tag:
+
+```sh
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+The release workflow checks that the tag matches the version, runs the checks, builds `maestri-bridge.vsix` and attaches it to a new GitHub release.
+
 By contributing, you agree that your contributions are licensed under the [MIT License](LICENSE).
