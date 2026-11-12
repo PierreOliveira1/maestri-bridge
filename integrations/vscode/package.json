@@ -2,9 +2,10 @@
   "name": "maestri-bridge",
   "displayName": "Maestri Bridge",
   "description": "%extension.description%",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "maestri-bridge",
   "license": "MIT",
+  "icon": "media/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/PierreOliveira1/maestri-bridge.git",
@@ -425,7 +426,7 @@
     "test": "vitest run --maxWorkers=5%",
     "build:ext": "esbuild src/extension.ts --bundle --platform=node --format=cjs --target=node20 --external:vscode --sourcemap --outfile=dist/extension.cjs",
     "build:webview": "esbuild src/webview/composer.ts --bundle --platform=browser --format=iife --target=es2022 --outfile=dist/composer.js",
-    "package": "pnpm run build && vsce package --no-dependencies --out maestri-bridge.vsix"
+    "package": "pnpm run build && cp ../../README.md README.md && vsce package --no-dependencies --baseContentUrl https://github.com/PierreOliveira1/maestri-bridge/blob/main --baseImagesUrl https://raw.githubusercontent.com/PierreOliveira1/maestri-bridge/main --out maestri-bridge.vsix"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",

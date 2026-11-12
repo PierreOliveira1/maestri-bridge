@@ -107,6 +107,7 @@ describe('groupTerminalsByFloor', () => {
     expect(groups).toEqual([
       expect.objectContaining({ key: 'ground', isCurrent: true, terminals: [expect.objectContaining({ id: 't1' })] }),
     ]);
+    expect(groups[0]?.floor).toEqual({ name: 'Ground', isActive: true });
   });
 
   it('devolve lista vazia sem andares nem terminais', () => {

@@ -57,7 +57,7 @@ export function groupTerminalsByFloor(
       : [
           {
             key: GROUND_FLOOR_KEY,
-            floor: { name: 'Térreo', isActive: true },
+            floor: { name: 'Ground', isActive: true },
             isCurrent: true,
             terminals: orphans,
           },
