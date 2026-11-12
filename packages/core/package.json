@@ -1,0 +1,20 @@
+{
+  "name": "@maestri-bridge/core",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --maxWorkers=5%"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "selfsigned": "^5.5.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}

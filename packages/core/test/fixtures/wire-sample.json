@@ -1,0 +1,500 @@
+{
+  "info": {
+    "hosts": [
+      "192.168.1.20"
+    ],
+    "requiresPassword": false,
+    "capabilities": [
+      "feedSnapshots",
+      "terminalStreaming",
+      "terminalInputBytes",
+      "terminalInputText",
+      "promptSegments",
+      "attachmentStaging",
+      "attachmentDiscard",
+      "mentionCatalog",
+      "terminalThemes",
+      "nativeNotes",
+      "pairingCodes",
+      "canvasMirroring",
+      "canvasWrites",
+      "terminalResize",
+      "terminalChat",
+      "noteStackWrites",
+      "noteStackPages",
+      "deviceRoles",
+      "drawingWrites",
+      "workspaceActions",
+      "terminalDrafts",
+      "roleManagement",
+      "nodeGroups",
+      "noteStackFiling",
+      "partituras",
+      "nodeBatchDelete",
+      "canvasFiles",
+      "deviceRenaming",
+      "presence",
+      "textStyling",
+      "nodeUnload",
+      "terminalFocus",
+      "cameraControl",
+      "nodeFocus",
+      "fileTrees",
+      "terminalFileMentions",
+      "workspaceManagement",
+      "floorManagement",
+      "floorStatus",
+      "pullRequestChecks",
+      "pullRequestLanding",
+      "pullRequestReview",
+      "floorHooks",
+      "routines",
+      "cableTies",
+      "agentUsage",
+      "agentAccounts",
+      "fileTreePullRequest",
+      "chatThreadPreviews",
+      "push",
+      "fileRopeToNote",
+      "crossConnectionCut",
+      "bandMembers",
+      "bandMemberMoves",
+      "bandStyle",
+      "keepUnloaded",
+      "savedPrompts",
+      "floorFolders",
+      "computerUseApprovals"
+    ],
+    "role": "owner",
+    "activeWorkspaceId": "E4AF8924-240D-4EC7-8C49-C1B611451BF5",
+    "name": "Studio",
+    "protocolVersion": 1
+  },
+  "workspaces": {
+    "layout": {
+      "folders": [],
+      "groups": [
+        {
+          "name": "Group 3",
+          "id": "341BE008-236B-4068-BC5C-5CB35E7FFF2D",
+          "folders": []
+        },
+        {
+          "name": "Group 6",
+          "id": "40ED8106-EB80-48CE-A682-9B777B15607D",
+          "folders": []
+        },
+        {
+          "name": "Group 1",
+          "id": "547D7FC1-8A7C-4FBC-B78C-17C0E9D07B5B",
+          "folders": []
+        },
+        {
+          "name": "Group 2",
+          "id": "59F6513E-FF9A-458D-8050-9BB7B06EBFBF",
+          "folders": []
+        },
+        {
+          "name": "Group 5",
+          "id": "221D5E8A-15B1-4874-9B20-58839EB4CC1E",
+          "folders": []
+        },
+        {
+          "name": "Group 9",
+          "id": "B1E2A487-D8CC-46F3-8C1B-F44F49518E41",
+          "folders": []
+        },
+        {
+          "name": "Project C",
+          "id": "F5B9F1CB-A450-4409-B3EB-41676F070F93",
+          "folders": []
+        },
+        {
+          "name": "Group 4",
+          "id": "5AA9534D-F996-400A-B2EA-E5A0AC2E5D06",
+          "folders": []
+        },
+        {
+          "name": "Project D",
+          "id": "5A2A5AF3-BA38-4E1A-8745-E095B4A9A8F9",
+          "folders": []
+        }
+      ]
+    },
+    "workspaces": [
+      {
+        "ropeRouting": "avoidNodes",
+        "unloadStage": "resting",
+        "color": "#007AFF",
+        "id": "086792F8-DF4F-4DAC-A121-DB40031EFF8D",
+        "icon": "laptopcomputer",
+        "attentionCount": 0,
+        "isLocked": true,
+        "terminalCount": 2,
+        "isLoaded": false,
+        "name": "PC",
+        "hasActivity": false,
+        "isPinned": false,
+        "runningTerminalCount": 0,
+        "selectionStyle": "dashedBorder",
+        "workingDirectory": "/Users/dev/Projects"
+      },
+      {
+        "ropeRouting": "avoidNodes",
+        "unloadStage": "resting",
+        "color": "#007AFF",
+        "id": "A7FACA65-59C9-44C5-AE64-B6DEF44FE344",
+        "icon": "hammer",
+        "attentionCount": 0,
+        "isLocked": false,
+        "terminalCount": 8,
+        "isLoaded": false,
+        "name": "Project A",
+        "hasActivity": false,
+        "isPinned": false,
+        "runningTerminalCount": 0,
+        "selectionStyle": "dashedBorder",
+        "workingDirectory": "/Users/dev/Projects/Project-A",
+        "groupName": "Group 3"
+      },
+      {
+        "ropeRouting": "avoidNodes",
+        "unloadStage": "resting",
+        "color": "#007AFF",
+        "id": "63B64B9C-8729-4687-B2A4-D04EA5438CA8",
+        "icon": "hammer",
+        "attentionCount": 0,
+        "isLocked": false,
+        "terminalCount": 1,
+        "isLoaded": false,
+        "name": "Project B",
+        "hasActivity": false,
+        "isPinned": false,
+        "runningTerminalCount": 0,
+        "selectionStyle": "dashedBorder",
+        "workingDirectory": "/Users/dev/Projects/Project-B",
+        "groupName": "Group 3"
+      },
+      {
+        "ropeRouting": "avoidNodes",
+        "unloadStage": "live",
+        "color": "#007AFF",
+        "id": "E4AF8924-240D-4EC7-8C49-C1B611451BF5",
+        "icon": "terminal",
+        "attentionCount": 1,
+        "isLocked": false,
+        "terminalCount": 4,
+        "isLoaded": true,
+        "name": "Maestri Extension",
+        "hasActivity": false,
+        "isPinned": false,
+        "runningTerminalCount": 4,
+        "selectionStyle": "dashedBorder",
+        "workingDirectory": "/Users/dev/Projects/Maestri Extension",
+        "groupName": "Group 3"
+      },
+      {
+        "ropeRouting": "avoidNodes",
+        "unloadStage": "live",
+        "color": "#007AFF",
+        "id": "50F7A75B-C058-46EC-A5F9-02474C46B150",
+        "icon": "laptopcomputer",
+        "attentionCount": 0,
+        "isLocked": false,
+        "terminalCount": 6,
+        "isLoaded": true,
+        "name": "Project C",
+        "hasActivity": false,
+        "isPinned": false,
+        "runningTerminalCount": 6,
+        "selectionStyle": "dashedBorder",
+        "workingDirectory": "/Users/dev/Projects/Project-C",
+        "groupName": "Group 8"
+      },
+      {
+        "ropeRouting": "avoidNodes",
+        "unloadStage": "live",
+        "color": "#007AFF",
+        "id": "912F8D28-CB6F-47AB-8EA5-77DD3794E9F9",
+        "icon": "laptopcomputer",
+        "attentionCount": 2,
+        "isLocked": false,
+        "terminalCount": 13,
+        "isLoaded": true,
+        "name": "Project D",
+        "hasActivity": false,
+        "isPinned": false,
+        "runningTerminalCount": 13,
+        "selectionStyle": "dashedBorder",
+        "workingDirectory": "/Users/dev/Projects/Project-D",
+        "groupName": "Group 7"
+      }
+    ]
+  },
+  "feed": {
+    "items": [
+      {
+        "note": {
+          "color": "green",
+          "isContentLocked": false,
+          "fileName": "MB Plano.md",
+          "floorName": "Ground",
+          "hasCustomName": true,
+          "preview": [
+            "# MB Plano — maestri-bridge",
+            "",
+            "Objetivo: enviar seleção de código + mensagem do editor para um terminal/agente do Maestri via Wire (HTTPS/WSS, porta 7434, protocolVersion 1).",
+            "Início pelo VS Code; Zed depois (task + janela/TUI) reaproveitando o core.",
+            "",
+            "## Arquitetura"
+          ],
+          "lastModifiedAt": "2026-11-12T05:23:29Z",
+          "nodeId": "4EA9E86E-E59B-48AC-83F0-BF672F2B0275",
+          "displayName": "MB Plano",
+          "isExternal": false
+        },
+        "kind": "note"
+      },
+      {
+        "note": {
+          "color": "yellow",
+          "isContentLocked": false,
+          "fileName": "MB F1.md",
+          "floorName": "Ground",
+          "hasCustomName": true,
+          "preview": [
+            "OBJETIVO: no pacote packages/core, a camada de transporte do Wire do Maestri: conexão TLS com pin da chave pública, requisição HTTP JSON, erros tipados e pareamento. Tudo coberto por testes Vitest com um servidor HTTPS local de teste.",
+            "",
+            "CONTEXTO: o Maestri expõe uma API chamada Wire, somente em HTTPS, porta 7434. O certificado é autoassinado. O cliente confia no servidor fixando o \"pin\": base64(sha256(SubjectPublicKeyInfo DER)), o mesmo formato do curl --pinnedpubkey. A UI do Maestri mostra essa chave em hexadecimal com dois-pontos. O token de dispositivo vai em `Authorization: Bearer <token>`. O pareamento é `POST /pair` sem autenticação, com o corpo `{\"deviceName\",\"code\"}` ou `{\"deviceName\",\"password\"}` (exatamente um dos dois) mais `deviceIdentifier` opcional. A resposta 200 é `{\"token\",\"deviceId\",\"deviceName\",\"protocolVersion\",\"role\"}`. O envelope de erro é `{\"error\":{\"code\",\"message\",\"reason\"?}}`. Os códigos são invalidRequest, unauthorized, forbidden, notFound, conflict, preconditionFailed, payloadTooLarge, rateLimited, internalError, unavailable e unknown. O 429 vem com o cabeçalho Retry-After em segundos. Toda resposta tem `Connection: close`. Só HTTP/1.1. O cabeçalho Host precisa ser um IP literal ou localhost.",
+            "Este core é headless: depois vai ser usado por uma extensão de VS Code e por uma CLI.",
+            "",
+            "ARQUIVOS (todos já com o esqueleto; o monorepo já existe):"
+          ],
+          "lastModifiedAt": "2026-11-12T05:22:25Z",
+          "nodeId": "A19C25A3-9C61-411D-B3E1-4A291BF6CAA9",
+          "displayName": "MB F1",
+          "isExternal": false
+        },
+        "kind": "note"
+      },
+      {
+        "note": {
+          "color": "slate",
+          "isContentLocked": false,
+          "fileName": "MB F1b.md",
+          "floorName": "Ground",
+          "hasCustomName": true,
+          "preview": [
+            "OBJETIVO: criar em packages/core um formatador puro que monta o texto enviado a um agente do Maestri: a mensagem do usuário mais as referências de código (arquivo, linhas, linguagem e trecho). Coberto por testes Vitest.",
+            "",
+            "CONTEXTO: no editor (VS Code, e depois Zed), o usuário seleciona código, escreve uma mensagem e escolhe um agente do Maestri. O texto final vai como prompt para esse agente. É uma função pura, sem I/O e sem dependência de editor. Formato esperado:",
+            "",
+            "<mensagem do usuário>",
+            ""
+          ],
+          "lastModifiedAt": "2026-11-12T05:13:24Z",
+          "nodeId": "1C5B2278-D2CC-4D89-825C-7CD70FA0FE5A",
+          "displayName": "MB F1b",
+          "isExternal": false
+        },
+        "kind": "note"
+      },
+      {
+        "kind": "terminal",
+        "terminal": {
+          "isRunning": true,
+          "isManager": false,
+          "floorName": "Ground",
+          "isLive": true,
+          "color": "#007AFF",
+          "id": "679ED697-D454-4324-87DD-4A2FECB0F02E",
+          "preview": [
+            "Added the reference formatter and its tests.",
+            "22 tests passing; typecheck clean."
+          ],
+          "needsAttention": false,
+          "cols": 91,
+          "lastActiveAt": "2026-11-12T05:09:56Z",
+          "icon": "rectangle.portrait",
+          "roleName": "AGENTE",
+          "nodeId": "6600624C-F927-4A2B-AF31-C9DA828A5B21",
+          "isUnloaded": false,
+          "agentType": "open_code",
+          "roleColor": "#AF52DE",
+          "name": "Trilha",
+          "rows": 29,
+          "isActive": false,
+          "roleIcon": "person.text.rectangle",
+          "status": "running"
+        }
+      },
+      {
+        "kind": "terminal",
+        "terminal": {
+          "isRunning": true,
+          "isManager": false,
+          "floorName": "Ground",
+          "isLive": true,
+          "color": "#007AFF",
+          "id": "702BF31E-D6BA-4A63-B937-7698242AB5BD",
+          "preview": [
+            "Wire transport ready: pinned TLS, HTTP client and errors.",
+            "42 tests passing."
+          ],
+          "needsAttention": true,
+          "cols": 91,
+          "lastActiveAt": "2026-11-12T05:09:55Z",
+          "icon": "rectangle.portrait",
+          "roleName": "AGENTE",
+          "nodeId": "D02C02FD-16CC-44CB-9BE7-67C1A29B69ED",
+          "isUnloaded": false,
+          "agentType": "open_code",
+          "roleColor": "#AF52DE",
+          "name": "Forja",
+          "rows": 29,
+          "isActive": false,
+          "roleIcon": "person.text.rectangle",
+          "status": "running"
+        }
+      },
+      {
+        "kind": "terminal",
+        "terminal": {
+          "isRunning": true,
+          "isManager": false,
+          "floorName": "Ground",
+          "isLive": true,
+          "color": "#007AFF",
+          "id": "ECFCE7FE-4406-407B-96A2-C9E17734C2CA",
+          "preview": [
+            "➜  Maestri Extension"
+          ],
+          "needsAttention": false,
+          "cols": 91,
+          "lastActiveAt": "2026-11-12T04:54:43Z",
+          "icon": "terminal",
+          "nodeId": "55843F9F-89FE-47C6-87A3-FEA453C639A8",
+          "isUnloaded": false,
+          "agentType": "generic_shell",
+          "name": "Shell",
+          "rows": 31,
+          "isActive": false,
+          "status": "running"
+        }
+      },
+      {
+        "kind": "terminal",
+        "terminal": {
+          "isRunning": true,
+          "isManager": true,
+          "floorName": "Ground",
+          "isLive": true,
+          "color": "#007AFF",
+          "id": "19D1D4BE-069C-4B05-A634-9E2690E8456D",
+          "preview": [
+            "Reviewing the core transport diff.",
+            "Next: client for workspaces, feed and prompts."
+          ],
+          "needsAttention": false,
+          "cols": 91,
+          "lastActiveAt": "2026-11-12T04:54:35Z",
+          "icon": "seal",
+          "roleName": "ORQUESTRADOR",
+          "nodeId": "C58882CF-A164-49C7-ABDF-47FD645C99E3",
+          "isUnloaded": false,
+          "chatPreview": {
+            "conversationId": "19D1D4BE-069C-4B05-A634-9E2690E8456D",
+            "isWorking": true,
+            "unreadCount": 0,
+            "entries": [
+              {
+                "role": "user",
+                "text": "Is the core ready?",
+                "id": "B8335F80-BE68-42EF-B60D-15AA3D779529",
+                "kind": "message",
+                "segments": [
+                  {
+                    "text": "Is the core ready?"
+                  }
+                ],
+                "ts": "2026-11-12T10:36:26Z"
+              },
+              {
+                "kind": "final",
+                "authorName": "Head",
+                "segments": [],
+                "text": "Yes. The core transport is done and tested. Next I'll pair a test device and read the workspaces.",
+                "agentType": "claude_code",
+                "ts": "2026-11-12T10:36:46Z",
+                "role": "agent",
+                "id": "DC1D6612-5574-421E-BB56-5B28A880E8C8"
+              }
+            ]
+          },
+          "agentType": "claude_code",
+          "roleColor": "#007AFF",
+          "name": "Head",
+          "rows": 29,
+          "isActive": false,
+          "roleIcon": "person.text.rectangle",
+          "status": "running",
+          "accountName": "Second"
+        }
+      },
+      {
+        "kind": "futureKind",
+        "futureKind": {}
+      }
+    ],
+    "pendingFloors": [],
+    "canvas": {
+      "nodes": [],
+      "connections": [],
+      "drawings": []
+    },
+    "workspace": {
+      "ropeRouting": "avoidNodes",
+      "unloadStage": "live",
+      "color": "#007AFF",
+      "id": "E4AF8924-240D-4EC7-8C49-C1B611451BF5",
+      "icon": "terminal",
+      "attentionCount": 1,
+      "isLocked": false,
+      "terminalCount": 4,
+      "isLoaded": true,
+      "name": "Maestri Extension",
+      "pendingFloors": [],
+      "hasActivity": false,
+      "floors": [
+        {
+          "isGitIsolated": false,
+          "unloadStage": "live",
+          "hasActivity": false,
+          "isCloneMissing": false,
+          "isDormant": false,
+          "isActive": true,
+          "attentionCount": 1,
+          "name": "Ground"
+        }
+      ],
+      "isPinned": false,
+      "runningTerminalCount": 4,
+      "selectionStyle": "dashedBorder",
+      "workingDirectory": "/Users/dev/Projects/Maestri Extension",
+      "groupName": "Group 3"
+    },
+    "floors": [
+      {
+        "isGitIsolated": false,
+        "unloadStage": "live",
+        "hasActivity": false,
+        "isCloneMissing": false,
+        "isDormant": false,
+        "isActive": true,
+        "attentionCount": 1,
+        "name": "Ground"
+      }
+    ],
+    "epoch": "B2B4FAB1-31AA-4C92-AB7C-A702C1056005"
+  }
+}

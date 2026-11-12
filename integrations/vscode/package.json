@@ -1,0 +1,381 @@
+{
+  "name": "maestri-bridge",
+  "displayName": "Maestri Bridge",
+  "description": "%extension.description%",
+  "version": "0.1.0",
+  "publisher": "maestri-bridge",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PierreOliveira1/maestri-bridge.git",
+    "directory": "integrations/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/PierreOliveira1/maestri-bridge/issues"
+  },
+  "homepage": "https://github.com/PierreOliveira1/maestri-bridge#readme",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "maestriBridge.compose",
+        "title": "%command.compose%",
+        "category": "Maestri",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "maestriBridge.openComposer",
+        "title": "%command.openComposer%",
+        "category": "Maestri",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "maestriBridge.quickSend",
+        "title": "%command.quickSend%",
+        "category": "Maestri",
+        "icon": "$(send)"
+      },
+      {
+        "command": "maestriBridge.pair",
+        "title": "%command.pair%",
+        "category": "Maestri"
+      },
+      {
+        "command": "maestriBridge.unpair",
+        "title": "%command.unpair%",
+        "category": "Maestri"
+      },
+      {
+        "command": "maestriBridge.thread.send",
+        "title": "%command.thread.send%",
+        "category": "Maestri"
+      },
+      {
+        "command": "maestriBridge.thread.cancel",
+        "title": "%command.thread.cancel%",
+        "category": "Maestri"
+      },
+      {
+        "command": "maestriBridge.thread.pickAgent",
+        "title": "%command.thread.pickAgent%",
+        "category": "Maestri",
+        "icon": "$(person)"
+      },
+      {
+        "command": "maestriBridge.thread.openInComposer",
+        "title": "%command.thread.openInComposer%",
+        "category": "Maestri",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "maestriBridge.agents.refresh",
+        "title": "%command.agents.refresh%",
+        "category": "Maestri",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "maestriBridge.agents.switchWorkspace",
+        "title": "%command.agents.switchWorkspace%",
+        "category": "Maestri",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "maestriBridge.agents.sendTo",
+        "title": "%command.agents.sendTo%",
+        "category": "Maestri",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "maestriBridge.agents.openInMaestri",
+        "title": "%command.agents.openInMaestri%",
+        "category": "Maestri",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "maestriBridge.agents.approve",
+        "title": "%command.agents.approve%",
+        "category": "Maestri",
+        "icon": "$(check)"
+      },
+      {
+        "command": "maestriBridge.agents.reject",
+        "title": "%command.agents.reject%",
+        "category": "Maestri",
+        "icon": "$(close)"
+      },
+      {
+        "command": "maestriBridge.agents.showWorkspace",
+        "title": "%command.agents.showWorkspace%",
+        "category": "Maestri"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "maestriBridge.thread.send",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.thread.cancel",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.thread.pickAgent",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.thread.openInComposer",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.agents.sendTo",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.agents.openInMaestri",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.agents.approve",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.agents.reject",
+          "when": "false"
+        },
+        {
+          "command": "maestriBridge.agents.showWorkspace",
+          "when": "false"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "maestriBridge.compose",
+          "when": "editorHasSelection",
+          "group": "maestri@1"
+        },
+        {
+          "command": "maestriBridge.openComposer",
+          "when": "editorHasSelection",
+          "group": "maestri@2"
+        }
+      ],
+      "comments/commentThread/title": [
+        {
+          "command": "maestriBridge.thread.pickAgent",
+          "group": "navigation@1",
+          "when": "commentController == maestriBridge"
+        },
+        {
+          "command": "maestriBridge.thread.openInComposer",
+          "group": "navigation@2",
+          "when": "commentController == maestriBridge"
+        }
+      ],
+      "comments/comment/context": [
+        {
+          "command": "maestriBridge.thread.send",
+          "group": "inline@1",
+          "when": "commentController == maestriBridge && comment == maestri.draft"
+        },
+        {
+          "command": "maestriBridge.thread.cancel",
+          "group": "inline@2",
+          "when": "commentController == maestriBridge && comment == maestri.draft"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "maestriBridge.openComposer",
+          "group": "navigation@1",
+          "when": "view == maestriBridge.agents"
+        },
+        {
+          "command": "maestriBridge.agents.switchWorkspace",
+          "group": "navigation@2",
+          "when": "view == maestriBridge.agents"
+        },
+        {
+          "command": "maestriBridge.agents.refresh",
+          "group": "navigation@3",
+          "when": "view == maestriBridge.agents"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "maestriBridge.agents.approve",
+          "group": "inline@1",
+          "when": "view == maestriBridge.agents && viewItem =~ /pending/"
+        },
+        {
+          "command": "maestriBridge.agents.reject",
+          "group": "inline@2",
+          "when": "view == maestriBridge.agents && viewItem =~ /pending/"
+        },
+        {
+          "command": "maestriBridge.agents.sendTo",
+          "group": "inline@3",
+          "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
+        },
+        {
+          "command": "maestriBridge.agents.openInMaestri",
+          "group": "inline@4",
+          "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
+        },
+        {
+          "command": "maestriBridge.agents.approve",
+          "group": "1_pending@1",
+          "when": "view == maestriBridge.agents && viewItem =~ /pending/"
+        },
+        {
+          "command": "maestriBridge.agents.reject",
+          "group": "1_pending@2",
+          "when": "view == maestriBridge.agents && viewItem =~ /pending/"
+        },
+        {
+          "command": "maestriBridge.agents.sendTo",
+          "group": "2_agent@1",
+          "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
+        },
+        {
+          "command": "maestriBridge.agents.openInMaestri",
+          "group": "2_agent@2",
+          "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "maestriBridge.compose",
+        "key": "ctrl+alt+m",
+        "mac": "ctrl+m",
+        "when": "editorTextFocus && !commentEditorFocused"
+      },
+      {
+        "command": "maestriBridge.thread.openInComposer",
+        "key": "ctrl+alt+m",
+        "mac": "ctrl+m",
+        "when": "commentEditorFocused && commentController == maestriBridge"
+      }
+    ],
+    "configuration": {
+      "title": "Maestri Bridge",
+      "properties": {
+        "maestriBridge.host": {
+          "type": "string",
+          "default": "localhost",
+          "description": "%config.host.description%"
+        },
+        "maestriBridge.port": {
+          "type": "number",
+          "default": 7434,
+          "description": "%config.port.description%"
+        },
+        "maestriBridge.gutterButton": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.gutterButton.description%"
+        },
+        "maestriBridge.notifyAttention": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.notifyAttention.description%"
+        },
+        "maestriBridge.pollIntervalSeconds": {
+          "type": "number",
+          "default": 2,
+          "minimum": 1,
+          "maximum": 60,
+          "description": "%config.pollIntervalSeconds.description%"
+        },
+        "maestriBridge.language": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "en",
+            "pt-br",
+            "es",
+            "fr",
+            "de",
+            "ja",
+            "zh-cn"
+          ],
+          "enumDescriptions": [
+            "%config.language.auto%",
+            "English",
+            "Português (Brasil)",
+            "Español",
+            "Français",
+            "Deutsch",
+            "日本語",
+            "简体中文"
+          ],
+          "description": "%config.language.description%"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "maestri",
+          "title": "Maestri",
+          "icon": "media/maestri-logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "maestri": [
+        {
+          "id": "maestriBridge.agents",
+          "name": "%view.agents.name%",
+          "icon": "media/maestri-logo.svg",
+          "contextualTitle": "Maestri"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "maestriBridge.agents",
+        "contents": "%view.agents.welcome%",
+        "when": "!maestriBridge.paired"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "pnpm run build:ext && pnpm run build:webview",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.webview.json",
+    "test": "vitest run --maxWorkers=5%",
+    "build:ext": "esbuild src/extension.ts --bundle --platform=node --format=cjs --target=node20 --external:vscode --sourcemap --outfile=dist/extension.cjs",
+    "build:webview": "esbuild src/webview/composer.ts --bundle --platform=browser --format=iife --target=es2022 --outfile=dist/composer.js",
+    "package": "pnpm run build && vsce package --no-dependencies --out maestri-bridge.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/vscode": "1.95.0",
+    "@vscode/vsce": "^4.1.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "@maestri-bridge/core": "workspace:*"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": false
+  }
+}
