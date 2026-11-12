@@ -2,5 +2,5 @@ packages:
   - packages/*
   - integrations/*
 allowBuilds:
-  '@vscode/vsce-sign': set this to true or false
+  '@vscode/vsce-sign': false
   esbuild: true
