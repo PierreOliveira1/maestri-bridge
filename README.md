@@ -71,6 +71,19 @@ After the first connection, Maestri Bridge pins that security key. If the key ev
 
 If Maestri runs on another computer, set `maestriBridge.host` to its address (an IP, a `.local` name or a Tailscale `.ts.net` name).
 
+### Remote windows (WSL, SSH, containers)
+
+In a remote window, VS Code runs Maestri Bridge on the remote side, next to your files. That's what lets agent notes show up on remote files, and it also means `localhost` is the remote machine, not the one running Maestri.
+
+- **WSL 2 on Windows:** turn on mirrored networking so WSL shares `localhost` with Windows. Add this to `%UserProfile%\.wslconfig`, then run `wsl --shutdown` from PowerShell:
+
+  ```ini
+  [wsl2]
+  networkingMode=mirrored
+  ```
+
+- **SSH and containers:** set `maestriBridge.host` to an address of the computer running Maestri that the remote machine can reach, such as its Tailscale `.ts.net` name.
+
 ## Usage
 
 ### Write to an agent from the editor
