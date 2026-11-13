@@ -2,7 +2,7 @@
   "name": "maestri-bridge",
   "displayName": "Maestri Bridge",
   "description": "%extension.description%",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "maestri-bridge",
   "license": "MIT",
   "icon": "media/icon.png",
