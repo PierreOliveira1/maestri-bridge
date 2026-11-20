@@ -90,9 +90,14 @@ case "$target" in
     ;;
 esac
 
-case "$file" in
-  /*) ;;
-  *) file="$(pwd)/$file" ;;
+case "$(uname -s)" in
+  MINGW* | MSYS* | CYGWIN*) file="$(cygpath -am -- "$file")" ;;
+  *)
+    case "$file" in
+      /*) ;;
+      *) file="$(pwd)/$file" ;;
+    esac
+    ;;
 esac
 
 if [ ! -e "$file" ]; then
