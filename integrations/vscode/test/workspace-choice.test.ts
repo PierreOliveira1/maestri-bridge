@@ -13,6 +13,10 @@ function workspace(
 describe('chooseWorkspace', () => {
   const a = workspace('a', '/projetos/a');
   const b = workspace('b', '/projetos/b', true);
+  it('prioriza o workspace explicitamente selecionado na sidebar para acompanhar', () => {
+    expect(chooseWorkspace({ workspaces: [a, b], selectedWorkspaceId: 'b', filePath: '/projetos/a/src/app.ts', rememberedWorkspaceId: 'a', activeWorkspaceId: 'a' })?.id).toBe('b');
+    expect(chooseWorkspace({ workspaces: [a, b], selectedWorkspaceId: 'removed', activeWorkspaceId: 'a' })?.id).toBe('a');
+  });
 
   it('prioriza o workspace do arquivo', () => {
     expect(

@@ -2,6 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { MAX_PASTED_FILE_BYTES, parseChatFromWebview } from '../src/chat-protocol.ts';
 
 describe('parseChatFromWebview', () => {
+  it('limita os controles de acompanhamento a iniciar, pausar, retomar e parar', () => {
+    for (const action of ['start', 'pause', 'resume', 'stop']) {
+      expect(parseChatFromWebview({ type: 'followAction', action })).toEqual({ type: 'followAction', action });
+    }
+    for (const action of ['approve', 'reject', 'executeCommand', '', undefined, 1]) {
+      expect(parseChatFromWebview({ type: 'followAction', action })).toBeUndefined();
+    }
+  });
   it('aceita as ações sem campos', () => {
     expect(parseChatFromWebview({ type: 'enableChat' })).toEqual({ type: 'enableChat' });
     expect(parseChatFromWebview({ type: 'approve' })).toEqual({ type: 'approve' });

@@ -1,4 +1,5 @@
 {
+  "config.follow.previewPosition.description": "Affiche le code suivi dans le groupe actuel ou dans un groupe adjacent. Le groupe reste fixe pendant la session.",
   "extension.description": "Envoyez des extraits de code et des messages à vos agents Maestri.",
   "command.compose": "Écrire à un agent (dans l'éditeur)",
   "command.openComposer": "Ouvrir le chat",
@@ -32,5 +33,10 @@
   "command.notes.close": "Fermer la note",
   "command.notes.clearAll": "Effacer les notes des agents",
   "command.notes.reply": "Répondre",
-  "config.agentLinks.description": "Permet aux agents d’ouvrir des fichiers ici, de surligner du code et de laisser des notes auxquelles vous pouvez répondre. Seuls les fichiers des dossiers ouverts sont ouverts."
+  "config.agentLinks.description": "Permet aux agents d’ouvrir des fichiers ici, de surligner du code et de laisser des notes auxquelles vous pouvez répondre. Seuls les fichiers des dossiers ouverts sont ouverts.",
+  "command.follow.start": "Suivre un agent",
+  "command.follow.pause": "Suspendre le suivi",
+  "command.follow.resume": "Reprendre le suivi",
+  "command.follow.stop": "Arrêter le suivi",
+  "command.follow.reply": "Répondre à un agent"
 }

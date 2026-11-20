@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="550" viewBox="0 0 1200 550" role="img" aria-labelledby="title desc">
+  <title id="title">Follow agent interaction / Fluxo de acompanhamento</title>
+  <desc id="desc">Choose agent and root, publish saved activity, validate session and content, reveal code and decision. Human navigation or invalid content pauses; resume rechecks the latest location; stop clears following.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9Z" fill="#475569"/></marker></defs>
+  <rect width="1200" height="550" rx="18" fill="#f8fafc"/>
+  <g fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)">
+    <path d="M380 152H430"/><path d="M770 152H820"/><path d="M990 205V345"/>
+    <path d="M820 185H790V265H600V345" stroke-dasharray="6 5"/>
+    <path d="M820 397H770"/><path d="M430 397H380"/>
+    <path d="M600 345C600 300 920 325 950 205" stroke="#2563eb"/>
+  </g>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#0f172a">
+    <text x="40" y="48" font-size="28" font-weight="700">Follow agent / Acompanhar agente</text>
+    <text x="40" y="76" font-size="15" fill="#475569">One editor focus, explicit human control / Um foco no editor, controle humano explícito</text>
+    <rect x="40" y="100" width="340" height="105" rx="12" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="60" y="133" font-size="20" font-weight="700">1 · Choose agent + root</text><text x="60" y="162" font-size="18">Escolher agente + raiz</text><text x="60" y="188" font-size="14" fill="#334155">Explicit session / Sessão explícita</text>
+    <rect x="430" y="100" width="340" height="105" rx="12" fill="#ede9fe" stroke="#7c3aed"/>
+    <text x="450" y="133" font-size="20" font-weight="700">2 · Publish saved activity</text><text x="450" y="162" font-size="18">Publicar atividade salva</text><text x="450" y="188" font-size="14" fill="#334155">Range + revision / Trecho + revisão</text>
+    <rect x="820" y="100" width="340" height="105" rx="12" fill="#e2e8f0" stroke="#64748b"/>
+    <text x="840" y="133" font-size="20" font-weight="700">3 · Check session + content</text><text x="840" y="162" font-size="18">Conferir sessão + conteúdo</text><text x="840" y="188" font-size="14" fill="#334155">Sequence, root, revision / Ordem, raiz, revisão</text>
+    <text x="1006" y="276" font-size="15" fill="#475569">Match / Confere</text>
+    <text x="438" y="249" font-size="14" fill="#475569">Stale or dirty / Antigo ou não salvo</text>
+    <text x="651" y="320" font-size="14" fill="#1d4ed8">Resume + recheck / Retomar + conferir</text>
+    <rect x="820" y="345" width="340" height="110" rx="12" fill="#d1fae5" stroke="#059669"/>
+    <text x="840" y="379" font-size="20" font-weight="700">Reveal code + decision</text><text x="840" y="408" font-size="18">Revelar código + decisão</text><text x="840" y="435" font-size="14" fill="#334155">No cursor replacement / Sem trocar o cursor</text>
+    <rect x="430" y="345" width="340" height="110" rx="12" fill="#fef3c7" stroke="#d97706"/>
+    <text x="450" y="379" font-size="20" font-weight="700">Paused / Pausado</text><text x="450" y="408" font-size="18">Keep the latest location</text><text x="450" y="435" font-size="16">Reter o último local</text>
+    <rect x="40" y="345" width="340" height="110" rx="12" fill="#e2e8f0" stroke="#64748b"/>
+    <text x="60" y="379" font-size="20" font-weight="700">Stop / Parar</text><text x="60" y="408" font-size="18">Clear tracking + indicators</text><text x="60" y="435" font-size="16">Limpar acompanhamento + indicadores</text>
+    <text x="40" y="499" font-size="15" fill="#475569">Cooperative URI activity — not host-authenticated authorship.</text>
+    <text x="40" y="523" font-size="15" fill="#475569">Atividade cooperativa por URI — sem autenticação de autoria pelo host.</text>
+  </g>
+</svg>

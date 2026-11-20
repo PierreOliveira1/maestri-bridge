@@ -7,10 +7,13 @@ export interface WorkspaceChoiceInput {
   folderPath?: string;
   rememberedWorkspaceId?: string;
   activeWorkspaceId?: string;
+  selectedWorkspaceId?: string;
 }
 
 export function chooseWorkspace(input: WorkspaceChoiceInput): WorkspaceSummary | undefined {
   const { workspaces, filePath, folderPath, rememberedWorkspaceId, activeWorkspaceId } = input;
+  const selected = workspaces.find((workspace) => workspace.id === input.selectedWorkspaceId);
+  if (selected !== undefined) return selected;
 
   if (filePath !== undefined) {
     const byFile = matchWorkspaceByPath(workspaces, filePath);

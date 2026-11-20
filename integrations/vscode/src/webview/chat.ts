@@ -21,6 +21,7 @@ import {
 } from './chat-mention-tokens.ts';
 import type { InsertedMention, MentionTriggerChar } from './chat-mention-tokens.ts';
 import { findFileReferences } from './chat-links.ts';
+import { createFollowBanner } from './follow-banner.ts';
 
 interface WebviewApi {
   postMessage(message: unknown): void;
@@ -82,6 +83,7 @@ if (app === null) {
 }
 
 const root = el('div', 'chat-root');
+const followBanner = createFollowBanner((action) => post({ type: 'followAction', action }));
 const header = el('header', 'chat-header');
 const headerRow = el('div', 'header-row');
 
@@ -161,7 +163,7 @@ floatingMenu.hidden = true;
 floatingMenu.setAttribute('role', 'menu');
 document.body.append(floatingMenu);
 
-root.append(header, banners, scrollArea, composer);
+root.append(followBanner.element, header, banners, scrollArea, composer);
 app.append(root);
 
 compactStatus = root.clientWidth < 360;
@@ -251,6 +253,9 @@ window.addEventListener('message', (event: MessageEvent<unknown>) => {
   }
   const message = data as ChatToWebview;
   switch (message.type) {
+    case 'followState':
+      followBanner.update(message.startLabel, message.follow);
+      break;
     case 'state':
       renderState(message.state);
       break;

@@ -14,6 +14,7 @@ Chat with the agents running in [Maestri](https://www.themaestri.app) and send t
 - **Mentions and saved prompts.** Type `@` to mention an agent, a floor, a note, a portal, a Maestri action or a file. Type `$` to insert one of your saved Maestri prompts.
 - **Code links.** When an agent writes a path such as `src/auth/session.ts:12-24`, the path becomes a link that opens the file with those lines selected.
 - **Live agents sidebar.** See every agent in the current Maestri workspace with its status (working, idle, stopped, needs attention) and its latest output. From there you can write to an agent, open its terminal in Maestri and approve or reject a confirmation prompt.
+- **Follow an agent.** Use the target icon beside an agent or in the Agents/Chat header to follow its cooperative code updates. Verified file revisions appear in the editor without replacing your selection; navigation pauses following. Pause, resume and stop are also available from the Command Palette.
 - **Floors.** Agents on the current floor come first. Agents on other floors are grouped by floor name, and the agent search also matches floor names.
 - **Agents show you code.** An agent can open a file in your editor, highlight lines and leave a note below them. Reply in the same box and the answer goes back to that agent. Several notes in a row become a tour you step through.
 - **Attention alerts.** A notification shows up when an agent starts waiting for you.
@@ -90,6 +91,20 @@ In a remote window, VS Code runs Maestri Bridge on the remote side, next to your
 - **SSH and containers:** set `maestriBridge.host` to an address of the computer running Maestri that the remote machine can reach, such as its Tailscale `.ts.net` name.
 
 ## Usage
+
+### Follow an agent while it changes code
+
+Open a trusted local project and choose **Maestri: Follow agent** from the Command Palette, the target icon in the Agents/Chat header, or the action beside an agent. Choose the agent and, for a multi-root workspace, the project root. The extension sends that agent the session-specific activity helper instructions through the existing paired connection.
+
+The agent publishes activity after writing a file. Following checks the current file revision before highlighting the range or showing a short decision note. It does not infer authorship from filesystem changes. This first version uses cooperative URI events: the identity is reported by the emitter, not authenticated by a new host activity API.
+
+Use **Pause following**, **Resume following** or **Stop following** from the view header or Command Palette. Clicking the follow status toggles pause/resume. Navigating, editing or leaving the window pauses following; resuming shows only the latest code location, without replaying old decisions. Reply directly to a decision note to send the attached code reference back to the selected agent.
+
+Following is off on restart. It requires agent links to be enabled, a paired Maestri connection and an existing local text file inside the selected root. Unsaved, changed, sensitive or unavailable files pause the view instead of being reloaded or saved. Remote workspaces and a host-authenticated continuous activity channel are outside this first version.
+
+The followed agent is identified in a persistent Agents row, on its own tree item, in a colored Chat card and in the status bar. A stable agent color connects these indicators with the file decoration in the tab/Explorer. One agent drives the editor at a time.
+
+Usage, architecture boundaries and validation: [Follow an agent / Acompanhar um agente](docs/agent-follow.md). Future proposals: [bilingual roadmap](docs/agent-follow-roadmap.md).
 
 ### Write to an agent from the editor
 

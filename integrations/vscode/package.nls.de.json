@@ -1,4 +1,5 @@
 {
+  "config.follow.previewPosition.description": "Zeigt verfolgten Code in der aktuellen oder in einer danebenliegenden Editorgruppe an. Die Gruppe bleibt während der Sitzung fest.",
   "extension.description": "Sende Codeausschnitte und Nachrichten an deine Maestri-Agenten.",
   "command.compose": "An einen Agenten schreiben (im Editor)",
   "command.openComposer": "Chat öffnen",
@@ -32,5 +33,10 @@
   "command.notes.close": "Notiz schließen",
   "command.notes.clearAll": "Agentennotizen löschen",
   "command.notes.reply": "Antworten",
-  "config.agentLinks.description": "Ermöglicht Agenten, hier Dateien zu öffnen, Code hervorzuheben und Notizen zu hinterlassen, auf die du antworten kannst. Es werden nur Dateien in den geöffneten Ordnern geöffnet."
+  "config.agentLinks.description": "Ermöglicht Agenten, hier Dateien zu öffnen, Code hervorzuheben und Notizen zu hinterlassen, auf die du antworten kannst. Es werden nur Dateien in den geöffneten Ordnern geöffnet.",
+  "command.follow.start": "Agent folgen",
+  "command.follow.pause": "Verfolgung pausieren",
+  "command.follow.resume": "Verfolgung fortsetzen",
+  "command.follow.stop": "Verfolgung beenden",
+  "command.follow.reply": "Agent antworten"
 }

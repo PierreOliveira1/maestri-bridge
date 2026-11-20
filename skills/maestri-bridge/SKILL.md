@@ -75,7 +75,21 @@ Every value must be URL-encoded. Only `file` is required. Open it with `open` on
 - The editor warns the file is outside the open folders: the user has a different folder open. Ask them to open the project folder, or show the path in your reply instead.
 - The editor says agent links are turned off: the user disabled `maestriBridge.agentLinks`. Don't insist; explain in text.
 
-## Rules
+## Cooperative code following
+
+When the user activates **Follow agent** in the editor, the extension sends a session id, agent id, root, editor executable, URI base and the path of `dist/emit-activity.mjs`. Use exactly that supplied context for this session. Do not create a session yourself or infer another agent's identity.
+
+After saving a text file, publish its current range:
+
+```text
+node <helper> focus <relative/file.ts:12-20> --session <session> --agent <agent> --seq <increasing-number> --root <root> --editor-path <editor-executable> --uri-base <uri-base>
+```
+
+For a relevant decision, use `decision <file:lines> <short-explanation>` instead of `focus <file:lines>`. To finish, use `finish` with the same context and an increased sequence number. Quote each argument using the current shell's syntax. `--print` emits the URI without opening the editor.
+
+The helper computes the revision from saved content. Never publish sensitive files or values. A publishing error must not repeat the code edit. No watcher, detached agent, new server or authentication change is needed. URI activity is cooperative and does not authenticate the author. `/show` remains the separate manual walkthrough interface.
+
+## General rules
 
 - Only show files from the project the user is working on.
 - Never put secrets, tokens or credentials in a note.

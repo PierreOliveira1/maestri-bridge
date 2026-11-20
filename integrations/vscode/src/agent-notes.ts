@@ -25,6 +25,7 @@ const ERROR_KEYS: Record<ShowLinkErrorCode, MessageKey> = {
 export function registerAgentNotes(
   services: ExtensionServices,
   monitor: AgentMonitor,
+  handleActivity?: (uri: vscode.Uri) => Promise<void>,
 ): vscode.Disposable {
   const controller = vscode.comments.createCommentController('maestriBridgeNotes', 'Maestri');
   controller.options = {
@@ -96,6 +97,7 @@ export function registerAgentNotes(
 
   const handleUri = async (uri: vscode.Uri): Promise<void> => {
     if (uri.path !== SHOW_LINK_PATH) {
+      await handleActivity?.(uri);
       return;
     }
 

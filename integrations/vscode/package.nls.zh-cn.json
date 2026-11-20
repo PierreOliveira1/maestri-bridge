@@ -1,4 +1,5 @@
 {
+  "config.follow.previewPosition.description": "在当前编辑器组或旁边的编辑器组中显示跟随的代码。编辑器组在会话期间保持固定。",
   "extension.description": "将代码片段和消息发送给你的 Maestri 代理。",
   "command.compose": "给代理写消息（在编辑器中）",
   "command.openComposer": "打开聊天",
@@ -32,5 +33,10 @@
   "command.notes.close": "关闭笔记",
   "command.notes.clearAll": "清除代理笔记",
   "command.notes.reply": "回复",
-  "config.agentLinks.description": "允许代理在此打开文件、突出显示代码并留下可供你回复的笔记。只会打开已打开文件夹中的文件。"
+  "config.agentLinks.description": "允许代理在此打开文件、突出显示代码并留下可供你回复的笔记。只会打开已打开文件夹中的文件。",
+  "command.follow.start": "跟随代理",
+  "command.follow.pause": "暂停跟随",
+  "command.follow.resume": "恢复跟随",
+  "command.follow.stop": "停止跟随",
+  "command.follow.reply": "回复代理"
 }

@@ -1,4 +1,5 @@
 {
+  "config.follow.previewPosition.description": "Place followed code in the current editor group or in a separate group beside it. The group stays fixed for the session.",
   "extension.description": "Send code snippets and messages to your Maestri agents.",
   "command.compose": "Write to an agent (in the editor)",
   "command.openComposer": "Open chat",
@@ -32,5 +33,10 @@
   "command.notes.close": "Close note",
   "command.notes.clearAll": "Clear agent notes",
   "command.notes.reply": "Reply",
-  "config.agentLinks.description": "Lets agents open files here, highlight code and leave notes you can reply to. Only files inside the open folders are opened."
+  "config.agentLinks.description": "Lets agents open files here, highlight code and leave notes you can reply to. Only files inside the open folders are opened.",
+  "command.follow.start": "Follow agent",
+  "command.follow.pause": "Pause following",
+  "command.follow.resume": "Resume following",
+  "command.follow.stop": "Stop following",
+  "command.follow.reply": "Reply to agent"
 }

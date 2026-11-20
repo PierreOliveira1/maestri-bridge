@@ -37,6 +37,12 @@ function workspace(overrides: Partial<WorkspaceSummary> = {}): WorkspaceSummary 
 }
 
 describe('terminalItemView', () => {
+  it('mantém a identificação quando o seletor oculta a prévia do terminal', () => {
+    const agent = terminal({ preview: ['comando interno'], needsAttention: true });
+    const { detail, ...identity } = terminalItemView(agent);
+    expect(detail).toBe('comando interno');
+    expect(terminalItemView(agent, false)).toEqual(identity);
+  });
   it('prioriza os ícones na ordem definida', () => {
     expect(
       terminalItemView(terminal({ needsAttention: true, isManager: true, isRunning: false }))

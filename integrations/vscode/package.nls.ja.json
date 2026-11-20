@@ -1,4 +1,5 @@
 {
+  "config.follow.previewPosition.description": "追跡するコードを現在のエディターグループまたは隣のグループに表示します。セッション中はグループを固定します。",
   "extension.description": "コードの一部とメッセージを Maestri のエージェントに送ります。",
   "command.compose": "エージェントに書く（エディター内）",
   "command.openComposer": "チャットを開く",
@@ -32,5 +33,10 @@
   "command.notes.close": "ノートを閉じる",
   "command.notes.clearAll": "エージェントノートをクリア",
   "command.notes.reply": "返信",
-  "config.agentLinks.description": "エージェントがここでファイルを開き、コードを強調表示して、返信できるノートを残せるようにします。開いているフォルダー内のファイルのみ開きます。"
+  "config.agentLinks.description": "エージェントがここでファイルを開き、コードを強調表示して、返信できるノートを残せるようにします。開いているフォルダー内のファイルのみ開きます。",
+  "command.follow.start": "エージェントを追跡",
+  "command.follow.pause": "追跡を一時停止",
+  "command.follow.resume": "追跡を再開",
+  "command.follow.stop": "追跡を終了",
+  "command.follow.reply": "エージェントに返信"
 }

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { AgentMonitor } from './agent-monitor.ts';
+import { AgentFollow } from './agent-follow.ts';
 import { registerAgentNotes } from './agent-notes.ts';
 import { registerAgentsView } from './agents-view.ts';
 import { registerAttentionNotifier } from './attention-notifier.ts';
@@ -24,12 +25,14 @@ export function activate(context: vscode.ExtensionContext): void {
   const memory = new TargetMemory(context.workspaceState);
   const services: ExtensionServices = { context, session, memory };
   const monitor = new AgentMonitor(services);
+  const follow = new AgentFollow(services, monitor);
   onLocaleChange = () => monitor.refresh();
 
   context.subscriptions.push(
     store,
     session,
     monitor,
+    follow,
     vscode.commands.registerCommand('maestriBridge.pair', () => runPairingFlow(store)),
     vscode.commands.registerCommand('maestriBridge.unpair', async () => {
       await store.clear();
@@ -39,9 +42,9 @@ export function activate(context: vscode.ExtensionContext): void {
       runQuickSend(session, memory),
     ),
     registerCommentComposer(services),
-    registerChatView(services, monitor),
-    registerAgentNotes(services, monitor),
-    registerAgentsView(services, monitor),
+    registerChatView(services, monitor, follow),
+    registerAgentNotes(services, monitor, (uri) => follow.handleUri(uri)),
+    registerAgentsView(services, monitor, follow),
     registerAttentionNotifier(services, monitor),
     createStatusBar(session, monitor),
   );

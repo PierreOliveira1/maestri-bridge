@@ -157,6 +157,36 @@
         "title": "%command.notes.reply%",
         "category": "Maestri",
         "icon": "$(send)"
+      },
+      {
+        "command": "maestriBridge.follow.start",
+        "title": "%command.follow.start%",
+        "category": "Maestri",
+        "icon": "$(target)"
+      },
+      {
+        "command": "maestriBridge.follow.pause",
+        "title": "%command.follow.pause%",
+        "category": "Maestri",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "maestriBridge.follow.resume",
+        "title": "%command.follow.resume%",
+        "category": "Maestri",
+        "icon": "$(debug-start)"
+      },
+      {
+        "command": "maestriBridge.follow.stop",
+        "title": "%command.follow.stop%",
+        "category": "Maestri",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "maestriBridge.follow.reply",
+        "title": "%command.follow.reply%",
+        "category": "Maestri",
+        "icon": "$(send)"
       }
     ],
     "menus": {
@@ -204,6 +234,10 @@
         {
           "command": "maestriBridge.notes.close",
           "when": "false"
+        },
+        {
+          "command": "maestriBridge.follow.reply",
+          "when": "false"
         }
       ],
       "editor/context": [
@@ -250,6 +284,11 @@
           "command": "maestriBridge.notes.reply",
           "group": "inline",
           "when": "commentController == maestriBridgeNotes && commentThread == maestri.note.reply"
+        },
+        {
+          "command": "maestriBridge.follow.reply",
+          "group": "inline",
+          "when": "commentController == maestriBridgeFollow"
         }
       ],
       "comments/comment/context": [
@@ -284,6 +323,26 @@
           "command": "maestriBridge.agents.refresh",
           "group": "navigation@3",
           "when": "view == maestriBridge.agents"
+        },
+        {
+          "command": "maestriBridge.follow.start",
+          "group": "navigation@5",
+          "when": "(view == maestriBridge.agents || view == maestriBridge.chat) && !maestriBridge.followActive"
+        },
+        {
+          "command": "maestriBridge.follow.pause",
+          "group": "navigation@6",
+          "when": "(view == maestriBridge.agents || view == maestriBridge.chat) && maestriBridge.following"
+        },
+        {
+          "command": "maestriBridge.follow.resume",
+          "group": "navigation@7",
+          "when": "(view == maestriBridge.agents || view == maestriBridge.chat) && maestriBridge.followPaused"
+        },
+        {
+          "command": "maestriBridge.follow.stop",
+          "group": "navigation@8",
+          "when": "(view == maestriBridge.agents || view == maestriBridge.chat) && maestriBridge.followActive"
         }
       ],
       "view/item/context": [
@@ -325,6 +384,16 @@
         {
           "command": "maestriBridge.agents.openInMaestri",
           "group": "2_agent@2",
+          "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
+        },
+        {
+          "command": "maestriBridge.follow.start",
+          "group": "inline@5",
+          "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
+        },
+        {
+          "command": "maestriBridge.follow.start",
+          "group": "2_agent@3",
           "when": "view == maestriBridge.agents && viewItem =~ /^agent/"
         }
       ]
@@ -402,6 +471,13 @@
           "type": "boolean",
           "default": true,
           "description": "%config.agentLinks.description%"
+        },
+        "maestriBridge.follow.previewPosition": {
+          "type": "string",
+          "enum": ["currentGroup", "beside"],
+          "default": "currentGroup",
+          "scope": "window",
+          "description": "%config.follow.previewPosition.description%"
         }
       }
     },
@@ -442,7 +518,7 @@
     "build": "pnpm run build:ext && pnpm run build:webview",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.webview.json",
     "test": "vitest run --maxWorkers=5%",
-    "build:ext": "esbuild src/extension.ts --bundle --platform=node --format=cjs --target=node20 --external:vscode --sourcemap --outfile=dist/extension.cjs",
+    "build:ext": "esbuild src/extension.ts --bundle --platform=node --format=cjs --target=node20 --external:vscode --sourcemap --outfile=dist/extension.cjs && esbuild ../../skills/maestri-bridge/scripts/emit-activity.mjs --bundle --platform=node --format=esm --target=node20 --outfile=dist/emit-activity.mjs",
     "build:webview": "esbuild src/webview/chat.ts --bundle --platform=browser --format=iife --target=es2022 --minify --outfile=dist/chat.js",
     "package": "pnpm run build && cp ../../README.md README.md && vsce package --no-dependencies --baseContentUrl https://github.com/PierreOliveira1/maestri-bridge/blob/main --baseImagesUrl https://raw.githubusercontent.com/PierreOliveira1/maestri-bridge/main --out maestri-bridge.vsix"
   },

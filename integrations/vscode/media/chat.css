@@ -1118,3 +1118,105 @@ a:focus-visible {
     animation: none;
   }
 }
+.follow-banner {
+  --follow-accent: var(--vscode-charts-blue);
+  display: grid;
+  min-inline-size: 0;
+  gap: 6px;
+  flex: 0 0 auto;
+  margin: 8px;
+  padding: 10px;
+  border: 1px solid var(--follow-accent);
+  border-inline-start-width: 4px;
+  border-radius: 5px;
+  color: var(--vscode-foreground);
+  background: var(--vscode-sideBar-background);
+  background: color-mix(in srgb, var(--follow-accent) 12%, var(--vscode-sideBar-background));
+  transition: background-color 160ms ease-out, border-color 160ms ease-out;
+}
+.follow-banner[hidden], .follow-banner [hidden] { display: none; }
+.follow-banner[data-accent="purple"] { --follow-accent: var(--vscode-charts-purple); }
+.follow-banner[data-accent="green"] { --follow-accent: var(--vscode-charts-green); }
+.follow-banner[data-accent="orange"] { --follow-accent: var(--vscode-charts-orange); }
+.follow-banner[data-accent="red"] { --follow-accent: var(--vscode-charts-red); }
+.follow-banner[data-accent="yellow"] { --follow-accent: var(--vscode-charts-yellow); }
+.follow-banner[data-phase="idle"] {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.follow-banner[data-phase="following"] { animation: follow-enter 180ms ease-out both; }
+.follow-banner[data-phase="paused"], .follow-banner[data-phase="completed"] {
+  background: var(--vscode-sideBar-background);
+}
+.follow-banner-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.follow-banner-icon { color: var(--follow-accent); font-size: 17px; }
+.follow-banner-context, .follow-banner-file {
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.follow-banner-context { color: var(--vscode-descriptionForeground); }
+.follow-banner-file, .follow-banner-note code { font-family: var(--vscode-editor-font-family, monospace); }
+.follow-banner-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.follow-banner-actions button {
+  color: var(--vscode-foreground);
+  border: 1px solid var(--vscode-widget-border, var(--follow-accent));
+  background: transparent;
+  border-radius: 3px;
+  padding: 3px 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+}
+.follow-banner-actions button:hover { background: var(--vscode-toolbar-hoverBackground); }
+.follow-banner-actions .follow-banner-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 28px;
+  padding-inline: 9px;
+}
+.follow-banner[data-phase="idle"] .follow-banner-start {
+  color: var(--vscode-button-foreground);
+  background: var(--vscode-button-background);
+}
+.follow-banner[data-phase="idle"] .follow-banner-start:hover { background: var(--vscode-button-hoverBackground); }
+.follow-banner-actions button:focus-visible { outline: 2px solid var(--vscode-focusBorder); outline-offset: 2px; }
+.follow-banner-note {
+  display: grid;
+  gap: 4px;
+  padding-block-start: 8px;
+  border-block-start: 1px solid var(--vscode-widget-border, var(--follow-accent));
+  color: var(--vscode-descriptionForeground);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.follow-banner-note p {
+  margin: 0;
+  color: var(--vscode-foreground);
+  font-size: 12px;
+  line-height: 1.45;
+  max-block-size: 7.25em;
+  overflow: auto;
+  animation: follow-enter 180ms ease-out both;
+}
+.follow-banner-note p:focus-visible { outline: 1px solid var(--vscode-focusBorder); }
+.vscode-high-contrast .follow-banner:not([data-phase="idle"]),
+.vscode-high-contrast-light .follow-banner:not([data-phase="idle"]) {
+  background: var(--vscode-sideBar-background);
+  border: 2px solid var(--vscode-contrastActiveBorder);
+}
+@keyframes follow-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .follow-banner[data-phase="following"], .follow-banner-note p { animation: none; }
+  .follow-banner { transition: none; }
+}

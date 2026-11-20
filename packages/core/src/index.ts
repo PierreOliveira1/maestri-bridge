@@ -12,6 +12,8 @@ export * from './reference.ts';
 export * from './preview.ts';
 export * from './floors.ts';
 export * from './show-link.ts';
+export * from './activity.ts';
+export * from './activity-link.ts';
 export * from './locate.ts';
 export * from './chat.ts';
 export * from './ws.ts';
