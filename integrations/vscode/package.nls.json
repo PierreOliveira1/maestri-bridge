@@ -30,6 +30,8 @@
   "command.notes.next": "Next agent note",
   "command.notes.previous": "Previous agent note",
   "command.notes.close": "Close note",
+  "command.notes.resume": "Resume agent tour",
+  "command.notes.review": "Review agent notes",
   "command.notes.clearAll": "Clear agent notes",
   "command.notes.reply": "Reply",
   "config.agentLinks.description": "Lets agents open files here, highlight code and leave notes you can reply to. Only files inside the open folders are opened."

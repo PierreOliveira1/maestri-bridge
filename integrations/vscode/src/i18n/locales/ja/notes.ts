@@ -20,6 +20,10 @@ export const notes: Record<keyof typeof source, string> = {
   'notes.error.textTooLong': 'エージェントリンクを無視しました：ノートが長すぎます。',
   'notes.label': '{name} · {index}/{total}',
   'notes.label.single': '{name}',
+  'notes.review.title': 'エージェントのツアーの進捗',
+  'notes.review.viewed': '確認済み',
+  'notes.review.pending': '未確認',
+  'notes.review.skipped': '復元できなかったノートがあります（{count} 件）。ファイルまたは強調表示された行が変更されたか、利用できません。',
   'notes.reply.placeholder': 'エージェントに返信…',
   'notes.reply.prompt': '返信',
 };

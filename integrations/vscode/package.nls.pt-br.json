@@ -30,6 +30,8 @@
   "command.notes.next": "Próxima nota do agente",
   "command.notes.previous": "Nota anterior do agente",
   "command.notes.close": "Fechar nota",
+  "command.notes.resume": "Retomar tour do agente",
+  "command.notes.review": "Revisar notas do agente",
   "command.notes.clearAll": "Limpar notas dos agentes",
   "command.notes.reply": "Responder",
   "config.agentLinks.description": "Permite que agentes abram arquivos aqui, destaquem código e deixem notas para você responder. Apenas arquivos dentro das pastas abertas são abertos."

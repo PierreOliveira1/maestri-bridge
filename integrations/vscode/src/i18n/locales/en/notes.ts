@@ -18,6 +18,10 @@ export const notes = {
   'notes.error.textTooLong': 'Ignored an agent link: the note is too long.',
   'notes.label': '{name} · {index} of {total}',
   'notes.label.single': '{name}',
+  'notes.review.title': 'Agent tour progress',
+  'notes.review.viewed': 'Viewed',
+  'notes.review.pending': 'Pending',
+  'notes.review.skipped': 'Some notes could not be restored ({count}). Their files or highlighted lines changed or are unavailable.',
   'notes.reply.placeholder': 'Reply to the agent…',
   'notes.reply.prompt': 'Reply',
 } satisfies Record<string, string>;

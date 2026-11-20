@@ -22,6 +22,10 @@ export const notes: Record<keyof typeof source, string> = {
   'notes.error.textTooLong': 'Agentenlink ignoriert: Die Notiz ist zu lang.',
   'notes.label': '{name} · {index} von {total}',
   'notes.label.single': '{name}',
+  'notes.review.title': 'Fortschritt des Agentenrundgangs',
+  'notes.review.viewed': 'Gesehen',
+  'notes.review.pending': 'Ausstehend',
+  'notes.review.skipped': 'Einige Notizen konnten nicht wiederhergestellt werden ({count}). Ihre Dateien oder markierten Zeilen wurden geändert oder sind nicht verfügbar.',
   'notes.reply.placeholder': 'Dem Agenten antworten…',
   'notes.reply.prompt': 'Antworten',
 };

@@ -141,6 +141,18 @@
         "icon": "$(arrow-up)"
       },
       {
+        "command": "maestriBridge.notes.resume",
+        "title": "%command.notes.resume%",
+        "category": "Maestri",
+        "icon": "$(play)"
+      },
+      {
+        "command": "maestriBridge.notes.review",
+        "title": "%command.notes.review%",
+        "category": "Maestri",
+        "icon": "$(list-unordered)"
+      },
+      {
         "command": "maestriBridge.notes.close",
         "title": "%command.notes.close%",
         "category": "Maestri",

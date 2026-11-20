@@ -155,6 +155,7 @@ Agents can also point at code for you. An agent opens a file in your editor, hig
 
 - **Reply on the note.** Type in the box below the note and press `Cmd+Enter`. Your reply goes to that agent with the highlighted code attached, and shows up in the same box.
 - **Step through a tour.** When an agent leaves several notes in a row, use the arrows at the top of each note, or **Maestri: Next agent note** and **Maestri: Previous agent note**, to go from one to the next.
+- **Resume a tour.** Use **Maestri: Resume agent tour** after reloading VS Code to reopen the last viewed note in the workspace. **Maestri: Review agent notes** lists the stops and marks those you have viewed.
 - **Close notes** with the `×` on each note, or all at once with **Maestri: Clear agent notes**.
 
 Ask for it in plain words, for example *"Walk me through how terminals get grouped by floor. Use the maestri-bridge skill to show me in the editor."*

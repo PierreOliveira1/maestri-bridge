@@ -20,6 +20,10 @@ export const notes: Record<keyof typeof source, string> = {
   'notes.error.textTooLong': 'Enlace de agente ignorado: la nota es demasiado larga.',
   'notes.label': '{name} · {index} de {total}',
   'notes.label.single': '{name}',
+  'notes.review.title': 'Progreso del recorrido del agente',
+  'notes.review.viewed': 'Vista',
+  'notes.review.pending': 'Pendiente',
+  'notes.review.skipped': 'No se pudieron restaurar algunas notas ({count}). Sus archivos o líneas resaltadas cambiaron o no están disponibles.',
   'notes.reply.placeholder': 'Responde al agente…',
   'notes.reply.prompt': 'Responder',
 };

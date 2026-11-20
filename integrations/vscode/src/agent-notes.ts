@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { SHOW_LINK_PATH, locateTerminal, parseShowLink } from '@maestri-bridge/core';
 import type { ShowLinkErrorCode } from '@maestri-bridge/core';
 import type { AgentMonitor } from './agent-monitor.ts';
+import { noteAnchor, rangeForNote, resolveSavedNoteStops } from './agent-note-files.ts';
 import { deliver } from './delivery.ts';
 import { referencesForRange } from './editor-references.ts';
 import { showFlowError } from './flow-errors.ts';
@@ -9,6 +10,8 @@ import { t } from './i18n/index.ts';
 import type { MessageKey } from './i18n/index.ts';
 import { NoteTours } from './notes-tour.ts';
 import type { StopLocation, TourStop } from './notes-tour.ts';
+import { readSavedNoteTour } from './note-tour-state.ts';
+import type { SavedNoteStop, SavedNoteTour } from './note-tour-state.ts';
 import type { ExtensionServices } from './services.ts';
 import type { AgentTarget } from './target-memory.ts';
 import { resolveWorkspaceFile } from './workspace-files.ts';
@@ -22,6 +25,15 @@ const ERROR_KEYS: Record<ShowLinkErrorCode, MessageKey> = {
   nameTooLong: 'notes.error.nameTooLong',
 };
 
+const SAVED_TOUR_KEY = 'maestriBridge.lastNoteTour';
+
+interface NoteThreadInfo {
+  agentId?: string;
+  name: string;
+  anchor: string;
+  viewed: boolean;
+}
+
 export function registerAgentNotes(
   services: ExtensionServices,
   monitor: AgentMonitor,
@@ -33,7 +45,84 @@ export function registerAgentNotes(
   };
 
   const tours = new NoteTours<vscode.CommentThread>();
-  const threadAgent = new Map<vscode.CommentThread, { agentId?: string; name: string }>();
+  const threadAgent = new Map<vscode.CommentThread, NoteThreadInfo>();
+  const checkpoints = new Map<string, vscode.CommentThread>();
+  const storage = services.context.workspaceState;
+  let pendingTour = readSavedNoteTour(storage.get<unknown>(SAVED_TOUR_KEY));
+  let activeAgent: string | undefined;
+  let disposed = false;
+
+  const activeTour = (): string | undefined =>
+    activeAgent !== undefined && tours.stops(activeAgent).length > 0
+      ? activeAgent
+      : tours.latestAgent();
+
+  const saveTour = async (): Promise<void> => {
+    if (disposed) {
+      return;
+    }
+    const agentKey = activeTour();
+    if (agentKey === undefined) {
+      await storage.update(SAVED_TOUR_KEY, pendingTour);
+      return;
+    }
+
+    const stops = tours.stops(agentKey);
+    const savedStops: SavedNoteStop[] = [];
+    let currentIndex = 0;
+    for (const { thread, ...location } of stops) {
+      const info = threadAgent.get(thread);
+      if (info === undefined) {
+        continue;
+      }
+      if (checkpoints.get(agentKey) === thread) {
+        currentIndex = savedStops.length;
+      }
+      savedStops.push({
+        ...location,
+        ...info,
+        comments: thread.comments.map((comment) => ({
+          text: typeof comment.body === 'string' ? comment.body : comment.body.value,
+          author: comment.author.name,
+          isReply: comment.contextValue === 'maestri.note.you',
+        })),
+      });
+    }
+
+    if (savedStops.length > 0) {
+      const snapshot: SavedNoteTour = {
+        version: 1,
+        agentKey,
+        currentIndex,
+        stops: savedStops,
+      };
+      pendingTour = undefined;
+      await storage.update(SAVED_TOUR_KEY, snapshot);
+    }
+  };
+
+  const recordView = (thread: vscode.CommentThread): void => {
+    const position = tours.position(thread);
+    const info = threadAgent.get(thread);
+    if (position !== undefined && info !== undefined) {
+      info.viewed = true;
+      activeAgent = position.agentKey;
+      checkpoints.set(position.agentKey, thread);
+    }
+  };
+
+  const createThread = (
+    uri: vscode.Uri,
+    range: vscode.Range,
+    comments: vscode.Comment[],
+    info: NoteThreadInfo,
+  ): vscode.CommentThread => {
+    const thread = controller.createCommentThread(uri, range, comments);
+    thread.canReply = info.agentId !== undefined;
+    thread.contextValue = info.agentId !== undefined ? 'maestri.note.reply' : 'maestri.note';
+    threadAgent.set(thread, info);
+    return thread;
+  };
 
   const disposeThread = (thread: vscode.CommentThread): void => {
     threadAgent.delete(thread);
@@ -53,22 +142,12 @@ export function registerAgentNotes(
     });
   };
 
-  const rangeFor = (
-    document: vscode.TextDocument,
-    location: StopLocation,
-  ): vscode.Range => {
-    const lastLine = Math.max(0, document.lineCount - 1);
-    const first = Math.min(lastLine, Math.max(0, (location.startLine ?? 1) - 1));
-    const last = Math.min(
-      lastLine,
-      Math.max(first, (location.endLine ?? location.startLine ?? 1) - 1),
-    );
-    return new vscode.Range(first, 0, last, document.lineAt(last).text.length);
-  };
-
   const revealStop = async (stop: TourStop<vscode.CommentThread>): Promise<void> => {
     const document = await vscode.workspace.openTextDocument(stop.thread.uri);
-    const range = stop.thread.range ?? rangeFor(document, stop);
+    if (disposed || tours.position(stop.thread) === undefined) {
+      return;
+    }
+    const range = stop.thread.range ?? rangeForNote(document, stop);
     const options: vscode.TextDocumentShowOptions = {
       preserveFocus: false,
       viewColumn: vscode.ViewColumn.One,
@@ -79,6 +158,7 @@ export function registerAgentNotes(
     const editor = await vscode.window.showTextDocument(stop.thread.uri, options);
     editor.revealRange(range, vscode.TextEditorRevealType.InCenter);
     stop.thread.collapsibleState = vscode.CommentThreadCollapsibleState.Expanded;
+    recordView(stop.thread);
   };
 
   const resolveFile = async (file: string, name: string): Promise<vscode.Uri | undefined> => {
@@ -93,6 +173,100 @@ export function registerAgentNotes(
 
   const agentLinksEnabled = (): boolean =>
     vscode.workspace.getConfiguration('maestriBridge').get<boolean>('agentLinks', true);
+
+  const restorePendingTour = async (): Promise<boolean> => {
+    const snapshot = pendingTour;
+    if (snapshot === undefined) {
+      return true;
+    }
+
+    const valid = await resolveSavedNoteStops(snapshot.stops);
+    if (disposed || pendingTour !== snapshot || !agentLinksEnabled()) {
+      return false;
+    }
+
+    const skipped = snapshot.stops.length - valid.length;
+    if (skipped > 0) {
+      void vscode.window.showWarningMessage(t('notes.review.skipped', { count: skipped }));
+    }
+    if (valid.length === 0) {
+      return false;
+    }
+
+    const stops = valid.map(({ note, document, range }): TourStop<vscode.CommentThread> => {
+      const { file, startLine, endLine, agentId, name, anchor, viewed, comments } = note;
+      const thread = createThread(
+        document.uri,
+        range,
+        comments.map((comment) => ({
+          body: markdown(comment.text),
+          mode: vscode.CommentMode.Preview,
+          author: { name: comment.isReply ? t('notes.author.you') : comment.author },
+          contextValue: comment.isReply ? 'maestri.note.you' : 'maestri.note.agent',
+        })),
+        { agentId, name, anchor, viewed },
+      );
+      return { file, startLine, endLine, thread };
+    });
+    for (const stop of stops) {
+      tours.push(snapshot.agentKey, stop);
+    }
+    const currentIndex = valid.findIndex(({ index }) => index === snapshot.currentIndex);
+    const current = stops[Math.max(0, currentIndex)];
+    if (current !== undefined) {
+      checkpoints.set(snapshot.agentKey, current.thread);
+    }
+    pendingTour = undefined;
+    activeAgent = snapshot.agentKey;
+    updateLabels(snapshot.agentKey);
+    return true;
+  };
+
+  const reviewTour = async (chooseNote: boolean): Promise<void> => {
+    try {
+      if (!agentLinksEnabled()) {
+        void vscode.window.showWarningMessage(t('notes.error.disabled'));
+        return;
+      }
+      if (!(await restorePendingTour())) {
+        return;
+      }
+      const agentKey = activeTour();
+      const stops = agentKey === undefined ? [] : tours.stops(agentKey);
+      if (agentKey === undefined || stops.length === 0) {
+        void vscode.window.showInformationMessage(t('notes.empty'));
+        return;
+      }
+
+      let stop = stops.find((item) => item.thread === checkpoints.get(agentKey)) ?? stops[0];
+      if (chooseNote) {
+        const items = stops.map((item, index) => ({
+          label: vscode.workspace.asRelativePath(item.thread.uri),
+          description: t('notes.label', {
+            name: t(threadAgent.get(item.thread)?.viewed ? 'notes.review.viewed' : 'notes.review.pending'),
+            index: index + 1,
+            total: stops.length,
+          }),
+          detail: item.startLine === undefined
+            ? undefined
+            : String(item.startLine) + '–' + String(item.endLine ?? item.startLine),
+          stop: item,
+        }));
+        const choice = await vscode.window.showQuickPick(items, {
+          title: t('notes.review.title'),
+          matchOnDescription: true,
+        });
+        stop = choice?.stop;
+      }
+
+      if (stop !== undefined && tours.position(stop.thread) !== undefined && agentLinksEnabled()) {
+        await revealStop(stop);
+        await saveTour();
+      }
+    } catch (error) {
+      await showFlowError(services.session, error);
+    }
+  };
 
   const handleUri = async (uri: vscode.Uri): Promise<void> => {
     if (uri.path !== SHOW_LINK_PATH) {
@@ -131,7 +305,7 @@ export function registerAgentNotes(
       if (request.endLine !== undefined) {
         location.endLine = request.endLine;
       }
-      const range = rangeFor(document, location);
+      const range = rangeForNote(document, location);
 
       if (request.text === undefined) {
         const options: vscode.TextDocumentShowOptions = {
@@ -151,7 +325,9 @@ export function registerAgentNotes(
       for (const thread of dropped) {
         disposeThread(thread);
       }
-
+      if (started) {
+        checkpoints.delete(agentKey);
+      }
       const existing = tours.find(agentKey, location);
       const comment: vscode.Comment = {
         body: markdown(request.text),
@@ -165,13 +341,16 @@ export function registerAgentNotes(
         existing.thread.comments = [...existing.thread.comments, comment];
         updateLabels(agentKey);
         await revealStop(existing);
+        await saveTour();
         return;
       }
 
-      const thread = controller.createCommentThread(fileUri, range, [comment]);
-      thread.canReply = request.agentId !== undefined;
-      thread.contextValue =
-        request.agentId !== undefined ? 'maestri.note.reply' : 'maestri.note';
+      const thread = createThread(fileUri, range, [comment], {
+        agentId: request.agentId,
+        name,
+        anchor: noteAnchor(document, range),
+        viewed: false,
+      });
       thread.collapsibleState = vscode.CommentThreadCollapsibleState.Expanded;
 
       const stop: TourStop<vscode.CommentThread> = { file: fileUri.fsPath, thread };
@@ -182,7 +361,6 @@ export function registerAgentNotes(
         stop.endLine = request.endLine;
       }
       tours.push(agentKey, stop);
-      threadAgent.set(thread, { agentId: request.agentId, name });
       updateLabels(agentKey);
 
       if (started) {
@@ -198,6 +376,7 @@ export function registerAgentNotes(
           6000,
         );
       }
+      await saveTour();
     } catch (error) {
       await showFlowError(services.session, error);
     }
@@ -241,7 +420,7 @@ export function registerAgentNotes(
       }
 
       if (base === undefined) {
-        const agentKey = tours.latestAgent();
+        const agentKey = activeTour();
         if (agentKey === undefined) {
           void vscode.window.showInformationMessage(t('notes.empty'));
           return;
@@ -257,27 +436,40 @@ export function registerAgentNotes(
       const next = tours.neighbor(base.thread, direction);
       if (next !== undefined) {
         await revealStop(next);
+        await saveTour();
       }
     } catch (error) {
       await showFlowError(services.session, error);
     }
   };
 
-  const close = (thread?: vscode.CommentThread): void => {
+  const close = async (thread?: vscode.CommentThread): Promise<void> => {
     if (thread === undefined) {
       return;
     }
     const agentKey = tours.remove(thread);
     disposeThread(thread);
     if (agentKey !== undefined) {
+      if (checkpoints.get(agentKey) === thread) {
+        checkpoints.delete(agentKey);
+      }
       updateLabels(agentKey);
+      await saveTour();
     }
   };
 
-  const clearAll = (): void => {
+  const clearThreads = (): void => {
     for (const thread of tours.clear()) {
       disposeThread(thread);
     }
+    checkpoints.clear();
+    activeAgent = undefined;
+  };
+
+  const clearAll = async (): Promise<void> => {
+    pendingTour = undefined;
+    clearThreads();
+    await storage.update(SAVED_TOUR_KEY, undefined);
   };
 
   const reply = async (commentReply: vscode.CommentReply): Promise<void> => {
@@ -326,7 +518,7 @@ export function registerAgentNotes(
       }
 
       const document = await vscode.workspace.openTextDocument(thread.uri);
-      const range = thread.range ?? rangeFor(document, { file: document.uri.fsPath });
+      const range = thread.range ?? rangeForNote(document, { file: document.uri.fsPath });
       const references = referencesForRange(document, range);
       const ok = await deliver({
         session: services.session,
@@ -352,6 +544,8 @@ export function registerAgentNotes(
         const position = tours.position(thread);
         if (position !== undefined) {
           tours.touch(position.agentKey);
+          recordView(thread);
+          await saveTour();
         }
       }
     } catch (error) {
@@ -367,19 +561,31 @@ export function registerAgentNotes(
     'maestriBridge.notes.previous',
     (thread?: vscode.CommentThread) => navigate(-1, thread),
   );
+  const resume = vscode.commands.registerCommand(
+    'maestriBridge.notes.resume',
+    () => reviewTour(false),
+  );
+  const review = vscode.commands.registerCommand(
+    'maestriBridge.notes.review',
+    () => reviewTour(true),
+  );
   const closeCommand = vscode.commands.registerCommand('maestriBridge.notes.close', close);
   const clearAllCommand = vscode.commands.registerCommand('maestriBridge.notes.clearAll', clearAll);
   const replyCommand = vscode.commands.registerCommand('maestriBridge.notes.reply', reply);
   const uriHandler = vscode.window.registerUriHandler({ handleUri });
 
   return new vscode.Disposable(() => {
+    disposed = true;
+    pendingTour = undefined;
     next.dispose();
     previous.dispose();
+    resume.dispose();
+    review.dispose();
     closeCommand.dispose();
     clearAllCommand.dispose();
     replyCommand.dispose();
     uriHandler.dispose();
-    clearAll();
+    clearThreads();
     controller.dispose();
   });
 }

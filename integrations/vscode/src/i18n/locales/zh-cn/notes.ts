@@ -18,6 +18,10 @@ export const notes: Record<keyof typeof source, string> = {
   'notes.error.textTooLong': '已忽略代理链接：笔记过长。',
   'notes.label': '{name} · {index}/{total}',
   'notes.label.single': '{name}',
+  'notes.review.title': '代理导览进度',
+  'notes.review.viewed': '已查看',
+  'notes.review.pending': '待查看',
+  'notes.review.skipped': '部分笔记无法恢复（{count} 条）。对应的文件或高亮行已更改，或当前不可用。',
   'notes.reply.placeholder': '回复代理…',
   'notes.reply.prompt': '回复',
 };

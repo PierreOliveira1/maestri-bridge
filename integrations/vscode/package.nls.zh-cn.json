@@ -30,6 +30,8 @@
   "command.notes.next": "下一条代理笔记",
   "command.notes.previous": "上一条代理笔记",
   "command.notes.close": "关闭笔记",
+  "command.notes.resume": "继续代理导览",
+  "command.notes.review": "查看代理笔记",
   "command.notes.clearAll": "清除代理笔记",
   "command.notes.reply": "回复",
   "config.agentLinks.description": "允许代理在此打开文件、突出显示代码并留下可供你回复的笔记。只会打开已打开文件夹中的文件。"

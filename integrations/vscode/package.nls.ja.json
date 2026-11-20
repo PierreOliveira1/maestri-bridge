@@ -30,6 +30,8 @@
   "command.notes.next": "次のエージェントノート",
   "command.notes.previous": "前のエージェントノート",
   "command.notes.close": "ノートを閉じる",
+  "command.notes.resume": "エージェントのツアーを再開",
+  "command.notes.review": "エージェントのノートを確認",
   "command.notes.clearAll": "エージェントノートをクリア",
   "command.notes.reply": "返信",
   "config.agentLinks.description": "エージェントがここでファイルを開き、コードを強調表示して、返信できるノートを残せるようにします。開いているフォルダー内のファイルのみ開きます。"
